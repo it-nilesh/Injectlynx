@@ -1,6 +1,6 @@
 # Packaging
 
-Normal consumers should install the primary package:
+Normal .NET 8, .NET 9, and .NET 10 consumers should install the primary package:
 
 ```bash
 dotnet add package Injectlynx
@@ -12,6 +12,8 @@ The primary package is represented by `src/Injectlynx/Injectlynx.csproj`. It pac
 - `Injectlynx.Generator.dll` under `analyzers/dotnet/cs`.
 - `Injectlynx.Core.dll` under `analyzers/dotnet/cs`.
 - Portable PDBs for Injectlynx generator assemblies under `analyzers/dotnet/cs`.
+
+The package targets `netstandard2.0` for the public DSL assembly and ships the generator under `analyzers/dotnet/cs`, so the same package can be consumed from modern .NET app targets.
 
 ```bash
 dotnet pack src/Injectlynx/Injectlynx.csproj

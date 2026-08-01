@@ -28,10 +28,10 @@ mkdir -p "$work_dir/Consumer/Services"
 cat > "$work_dir/Consumer/Consumer.csproj" <<EOF
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RestoreSources>$packages_dir</RestoreSources>
+    <RestoreSources>$packages_dir;https://api.nuget.org/v3/index.json</RestoreSources>
     <RestorePackagesPath>$work_dir/packages</RestorePackagesPath>
     <RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
   </PropertyGroup>
@@ -89,5 +89,7 @@ public sealed class OrderService : IOrderService
 EOF
 
 echo "Building fresh consumer..."
-dotnet build "$work_dir/Consumer/Consumer.csproj" -v minimal
+for tfm in net8.0 net9.0 net10.0; do
+  dotnet build "$work_dir/Consumer/Consumer.csproj" -f "$tfm" -v minimal
+done
 echo "Local package validation succeeded."

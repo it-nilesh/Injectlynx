@@ -3,10 +3,12 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 rid="${1:-osx-arm64}"
+tfm="${2:-net10.0}"
 
 echo "Injectlynx Native AOT validation"
 echo "Repository: $repo_root"
 echo "Runtime identifier: $rid"
+echo "Target framework: $tfm"
 
 generator_dll="$repo_root/src/Injectlynx.Generator/bin/Release/netstandard2.0/Injectlynx.Generator.dll"
 if [[ ! -f "$generator_dll" ]]; then
@@ -15,7 +17,7 @@ if [[ ! -f "$generator_dll" ]]; then
   exit 2
 fi
 
-dotnet publish "$repo_root/samples/NativeAot/NativeAot.csproj" -c Release -r "$rid" --no-restore
+dotnet publish "$repo_root/samples/NativeAot/NativeAot.csproj" -c Release -f "$tfm" -r "$rid" --no-restore
 
-publish_dir="$repo_root/samples/NativeAot/bin/Release/net10.0/$rid/publish"
+publish_dir="$repo_root/samples/NativeAot/bin/Release/$tfm/$rid/publish"
 echo "Native AOT publish output: $publish_dir"

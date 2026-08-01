@@ -6,6 +6,8 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 echo "Injectlynx Worker Service sample validation"
 echo "Repository: $repo_root"
 
-dotnet build "$repo_root/samples/WorkerService/WorkerService.csproj" --no-restore
+for tfm in net8.0 net9.0 net10.0; do
+  dotnet build "$repo_root/samples/WorkerService/WorkerService.csproj" -f "$tfm" --no-restore
+done
 
 echo "Worker Service sample validation succeeded."

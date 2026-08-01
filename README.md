@@ -1,6 +1,6 @@
 # Injectlynx
 
-Injectlynx is an attribute-free, compile-time dependency injection toolkit for .NET. Developers configure services with a strongly typed C# convention DSL, and a Roslyn source generator emits `Microsoft.Extensions.DependencyInjection` registrations during build.
+Injectlynx is an attribute-free, compile-time dependency injection toolkit for .NET 8, .NET 9, and .NET 10. Developers configure services with a strongly typed C# convention DSL, and a Roslyn source generator emits `Microsoft.Extensions.DependencyInjection` registrations during build.
 
 No service attributes, runtime reflection scanning, or custom container are required.
 
@@ -13,6 +13,10 @@ dotnet add package Injectlynx
 ```
 
 During source-tree development, samples reference the local `src/Injectlynx` project and generator assemblies directly.
+
+## Supported Targets
+
+Injectlynx is validated for .NET 8, .NET 9, and .NET 10 application projects. The public DSL assembly targets `netstandard2.0`, and the Roslyn generator is packaged as an analyzer.
 
 ## Quick Start
 

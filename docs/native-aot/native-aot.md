@@ -1,6 +1,6 @@
 # Native AOT
 
-The Native AOT sample verifies that Injectlynx can generate direct Microsoft DI registrations without runtime assembly scanning or reflection-based service discovery.
+The Native AOT sample verifies that Injectlynx can generate direct Microsoft DI registrations without runtime assembly scanning or reflection-based service discovery on supported modern .NET targets.
 
 ```bash
 dotnet build samples/NativeAot/NativeAot.csproj --no-restore
