@@ -3,6 +3,7 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 packages_dir="$repo_root/artifacts/packages"
+package_version="${PACKAGE_VERSION:-1.0.0}"
 work_dir="$(mktemp -d)"
 
 echo "Injectlynx local package validation"
@@ -14,7 +15,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-package_path="$packages_dir/Injectlynx.1.0.0.nupkg"
+package_path="$packages_dir/Injectlynx.$package_version.nupkg"
 if [[ ! -f "$package_path" ]]; then
   echo "Package not found: $package_path" >&2
   echo "Run: dotnet pack src/Injectlynx/Injectlynx.csproj -c Debug -o artifacts/packages" >&2
@@ -36,7 +37,7 @@ cat > "$work_dir/Consumer/Consumer.csproj" <<EOF
     <RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Injectlynx" Version="1.0.0" />
+    <PackageReference Include="Injectlynx" Version="$package_version" />
   </ItemGroup>
 </Project>
 EOF

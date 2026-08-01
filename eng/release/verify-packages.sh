@@ -4,6 +4,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 packages_dir="$repo_root/artifacts/packages"
 checksums_dir="$repo_root/artifacts/checksums"
+package_version="${PACKAGE_VERSION:-1.0.0}"
 
 echo "Injectlynx release package verification"
 echo "Repository: $repo_root"
@@ -64,7 +65,7 @@ require_command unzip
 require_command grep
 require_command shasum
 
-primary="$packages_dir/Injectlynx.1.0.0.nupkg"
+primary="$packages_dir/Injectlynx.$package_version.nupkg"
 
 require_file "$primary"
 

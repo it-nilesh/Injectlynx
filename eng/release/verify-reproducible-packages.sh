@@ -7,6 +7,7 @@ first_dir="$work_dir/first"
 second_dir="$work_dir/second"
 first_normalized_dir="$work_dir/first-normalized"
 second_normalized_dir="$work_dir/second-normalized"
+package_version="${PACKAGE_VERSION:-1.0.0}"
 
 echo "Injectlynx reproducible package verification"
 echo "Repository: $repo_root"
@@ -28,7 +29,7 @@ pack_all() {
   local output_dir="$1"
 
   mkdir -p "$output_dir"
-  dotnet pack "$repo_root/src/Injectlynx/Injectlynx.csproj" -c Release --no-restore -o "$output_dir" -p:ContinuousIntegrationBuild=true
+  dotnet pack "$repo_root/src/Injectlynx/Injectlynx.csproj" -c Release --no-restore -o "$output_dir" -p:ContinuousIntegrationBuild=true -p:Version="$package_version"
 }
 
 compare_package() {
@@ -116,6 +117,6 @@ for package in "$second_dir"/*.nupkg "$second_dir"/*.snupkg; do
   normalize_package "$package" "$second_normalized_dir"
 done
 
-compare_package "Injectlynx.1.0.0.nupkg"
+compare_package "Injectlynx.$package_version.nupkg"
 
 echo "Reproducible package verification succeeded."

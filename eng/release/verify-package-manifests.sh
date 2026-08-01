@@ -4,6 +4,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 packages_dir="$repo_root/artifacts/packages"
 manifests_dir="$repo_root/artifacts/manifests"
+package_version="${PACKAGE_VERSION:-1.0.0}"
 
 echo "Injectlynx package payload manifest verification"
 echo "Repository: $repo_root"
@@ -52,7 +53,7 @@ require_command shasum
 mkdir -p "$manifests_dir"
 
 for package in \
-  "$packages_dir/Injectlynx.1.0.0.nupkg"; do
+  "$packages_dir/Injectlynx.$package_version.nupkg"; do
   if [[ ! -f "$package" ]]; then
     echo "Required package not found: $package" >&2
     exit 2
