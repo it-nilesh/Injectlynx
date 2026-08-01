@@ -4,6 +4,8 @@ Injectlynx is an attribute-free, compile-time dependency injection toolkit for .
 
 No service attributes, runtime reflection scanning, or custom container are required.
 
+[Contributing](CONTRIBUTING.md) · [MIT License](LICENSE) · [Security](SECURITY.md)
+
 ## Install
 
 ```bash
