@@ -205,7 +205,7 @@ Injectlynx reports diagnostics when member-injection configuration is readable b
 
 ## Generated Code Shape
 
-The generator should emit a factory registration only when member injection is configured:
+The generator emits a factory registration when member injection is configured:
 
 ```csharp
 services.AddScoped<IOrderService>(provider =>
@@ -241,7 +241,7 @@ Generated reason comments list constructor dependencies, property injections, me
 - Keep direct registration generation for services without member injection.
 - Use factory registrations only when a property or method must be injected.
 - Resolve each dependency once per activation plan when the same service is needed multiple times.
-- Prefer generated constructor calls over `ActivatorUtilities` for Native AOT.
+- Keep factory bodies simple and explicit; current factory registrations use `ActivatorUtilities.CreateInstance<T>()`.
 - Avoid reflection, expression compilation, dynamic invocation, or cached runtime delegates.
 - Validate member metadata at compile time and emit simple generated C#.
 
