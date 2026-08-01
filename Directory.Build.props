@@ -16,7 +16,7 @@
     <PackageProjectUrl>https://github.com/it-nilesh/Injectlynx</PackageProjectUrl>
     <RepositoryUrl>https://github.com/it-nilesh/Injectlynx</RepositoryUrl>
     <PackageTags>dependency-injection;source-generator;roslyn;compile-time-di;net8;net9;net10;native-aot</PackageTags>
-    <PackageReleaseNotes>Supports .NET 8, .NET 9, and .NET 10 application projects. The public DSL assembly targets netstandard2.0 and the source generator is packaged as an analyzer.</PackageReleaseNotes>
+    <PackageReleaseNotes>Supports netstandard2.0, .NET 8, .NET 9, and .NET 10. The source generator is packaged as an analyzer.</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 </Project>

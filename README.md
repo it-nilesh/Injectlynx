@@ -16,7 +16,7 @@ During source-tree development, samples reference the local `src/Injectlynx` pro
 
 ## Supported Targets
 
-Injectlynx is validated for .NET 8, .NET 9, and .NET 10 application projects. The public DSL assembly targets `netstandard2.0`, and the Roslyn generator is packaged as an analyzer.
+Injectlynx ships public DSL assemblies for `netstandard2.0`, `net8.0`, `net9.0`, and `net10.0`. The Roslyn generator is packaged as an analyzer, and the samples/validation suite verify .NET 8, .NET 9, and .NET 10 application projects.
 
 ## Quick Start
 

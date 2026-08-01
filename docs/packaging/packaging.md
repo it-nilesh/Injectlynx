@@ -8,12 +8,12 @@ dotnet add package Injectlynx
 
 The primary package is represented by `src/Injectlynx/Injectlynx.csproj`. It packs:
 
-- `Injectlynx.dll` under `lib/netstandard2.0` with the public `IServiceConventionBuilder` DSL surface.
+- `Injectlynx.dll` under `lib/netstandard2.0`, `lib/net8.0`, `lib/net9.0`, and `lib/net10.0` with the public `IServiceConventionBuilder` DSL surface.
 - `Injectlynx.Generator.dll` under `analyzers/dotnet/cs`.
 - `Injectlynx.Core.dll` under `analyzers/dotnet/cs`.
 - Portable PDBs for Injectlynx generator assemblies under `analyzers/dotnet/cs`.
 
-The package targets `netstandard2.0` for the public DSL assembly and ships the generator under `analyzers/dotnet/cs`, so the same package can be consumed from modern .NET app targets.
+The package targets `netstandard2.0`, `net8.0`, `net9.0`, and `net10.0` for the public DSL assembly and ships the generator under `analyzers/dotnet/cs`.
 
 ```bash
 dotnet pack src/Injectlynx/Injectlynx.csproj
