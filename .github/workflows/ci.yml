@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-test-pack:
+    name: Build, Test, and Validate Packages
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore Injectlynx.slnx
+
+      - name: Build
+        run: dotnet build Injectlynx.slnx --no-restore
+
+      - name: Test
+        run: dotnet test Injectlynx.slnx --no-build
+
+      - name: Pack primary package
+        run: dotnet pack src/Injectlynx/Injectlynx.csproj -c Debug --no-build -o artifacts/packages
+
+      - name: Verify release package contents
+        run: bash eng/release/verify-packages.sh
+
+      - name: Verify dependency vulnerabilities
+        run: bash eng/release/verify-vulnerabilities.sh
+
+      - name: Generate SBOM
+        run: bash eng/release/generate-sbom.sh
+
+      - name: Verify package payload manifests
+        run: bash eng/release/verify-package-manifests.sh
+
+      - name: Verify reproducible packages
+        run: bash eng/release/verify-reproducible-packages.sh
+
+      - name: Validate local consumer package
+        run: bash eng/validation/validate-local-package.sh
+
+      - name: Validate Web API sample
+        run: bash eng/validation/validate-webapi-sample.sh
+
+      - name: Validate Worker Service sample
+        run: bash eng/validation/validate-worker-service-sample.sh
+
+      - name: Validate Native AOT sample
+        run: bash eng/validation/validate-native-aot.sh

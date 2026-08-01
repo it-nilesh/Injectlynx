@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Injectlynx\Injectlynx.csproj" />
+    <ProjectReference Include="..\..\src\Injectlynx.Generator\Injectlynx.Generator.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    <Analyzer Include="..\..\src\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\Injectlynx.Generator.dll" />
+    <Analyzer Include="..\..\src\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\Injectlynx.Core.dll" />
+  </ItemGroup>
+
+</Project>

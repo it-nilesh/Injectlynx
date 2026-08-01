@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Attribute-free compile-time dependency injection for Microsoft.Extensions.DependencyInjection.</Description>
+    <PackageId>Injectlynx</PackageId>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IncludeBuildOutput>true</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Injectlynx.Generator\Injectlynx.Generator.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="" />
+    <None Include="buildTransitive\Injectlynx.props" Pack="true" PackagePath="buildTransitive" />
+    <None Include="..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\*.dll" Exclude="..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis*.dll;..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll;..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\System.IO.Pipelines.dll;..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\System.Text.Encodings.Web.dll;..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\System.Text.Json.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\*.pdb" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+  </ItemGroup>
+
+</Project>

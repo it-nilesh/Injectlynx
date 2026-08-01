@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/eng/tools/">
+    <Project Path="eng/tools/Injectlynx.Sbom/Injectlynx.Sbom.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/MinimalApi/MinimalApi.csproj" />
+    <Project Path="samples/NativeAot/NativeAot.csproj" />
+    <Project Path="samples/WebApi/WebApi.csproj" />
+    <Project Path="samples/WorkerService/WorkerService.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Injectlynx.Core/Injectlynx.Core.csproj" />
+    <Project Path="src/Injectlynx.Generator/Injectlynx.Generator.csproj" />
+    <Project Path="src/Injectlynx/Injectlynx.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Injectlynx.ArchitectureTests/Injectlynx.ArchitectureTests.csproj" />
+    <Project Path="tests/Injectlynx.Core.Tests/Injectlynx.Core.Tests.csproj" />
+    <Project Path="tests/Injectlynx.Generator.Tests/Injectlynx.Generator.Tests.csproj" />
+  </Folder>
+</Solution>

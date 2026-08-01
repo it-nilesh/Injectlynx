@@ -1,0 +1,57 @@
+# Changelog
+
+## Unreleased
+
+- Added Phase 0 architecture assessment documentation.
+- Established the initial .NET solution structure.
+- Added the Phase 1 immutable core domain model and focused unit tests.
+- Added Phase 2 configuration parser, MSBuild AdditionalFiles props asset, documentation, and tests.
+- Added initial incremental source generator for convention-based Microsoft DI registrations with generator tests and `INJ001`/`INJ002`/`INJ003`/`INJ101`/`INJ102`/`INJ201`/`INJ202`/`INJ203`/`INJ210`/`INJ502` diagnostics.
+- Added simple open generic registration generation, basic constructor dependency validation, direct singleton-to-scoped lifetime validation, and circular dependency detection.
+- Added initial `Injectlynx.Cli` .NET tool project with `init`, `verify`, and `explain` commands plus CLI tests.
+- Added initial primary `Injectlynx` NuGet packaging project with analyzer and build-transitive assets.
+- Added a Minimal API sample and local package validation script for fresh consumer builds.
+- Added CLI `list`, `graph`, and `doctor` commands with tests and documentation.
+- Added a Native AOT console sample and documentation.
+- Added generated registration reason comments as a baseline service-intelligence feature.
+- Added explicit registration configuration and generation support.
+- Added keyed explicit registration support with generated Microsoft DI keyed registration calls.
+- Added `Injectlynx.Analyzers` with configuration diagnostics and packaged it in the primary NuGet package.
+- Added `Injectlynx.CodeFixes` with a baseline configuration recovery fix and packaged it with the primary NuGet package.
+- Added convention-level `excludedTypes` support for skipping specific implementation or contract types.
+- Added `externalServices` and `frameworkProvidedServices` configuration for constructor dependency validation.
+- Added initial `dotnet injectlynx migrate` analysis for manual DI and Scrutor-style registrations.
+- Added configured decorator support with generated factory registrations and `INJ301`/`INJ302` diagnostics.
+- Added `dotnet injectlynx report` for explicit on-demand Markdown configuration reports.
+- Added CI workflow scaffolding for build, test, pack, and package consumer validation.
+- Added architecture governance configuration with `INJ401` diagnostics for forbidden namespace dependencies.
+- Added trimmed consumer package validation for `PublishTrimmed=true` scenarios.
+- Added an `INJ001` code fix that can switch an identifiable convention to `Self` registration.
+- Added a Worker Service sample that consumes generated application-service registrations from a hosted background worker.
+- Added release package verification with required `.nupkg` content checks and SHA-256 checksum generation.
+- Added local CLI tool package installation validation for `Injectlynx.Cli`.
+- Added dependency vulnerability verification for direct and transitive NuGet packages.
+- Added normalized package payload manifest generation for release artifact auditing.
+- Added CycloneDX dependency SBOM generation from `dotnet list package` output.
+- Added portable PDB packaging for analyzer assets and CLI `.snupkg` symbol package verification.
+- Added an `INJ201` code fix that can add intentionally external constructor dependencies to `externalServices`.
+- Added architecture boundary tests for project references, Roslyn-free core/configuration layers, and generator runtime-discovery constraints.
+- Added an `INJ002` code fix that creates explicit registrations for ambiguous matching interfaces and excludes the implementation from the ambiguous convention.
+- Added performance gate tooling, thresholds, documentation, and CI validation for parser and generator benchmarks.
+- Added a controller-based Web API sample with generated service registration validation.
+- Added normalized byte-for-byte reproducible package verification for release packages.
+- Added `dotnet injectlynx benchmark` for lightweight configuration parsing performance reports.
+- Extended packaged CLI validation to exercise the installed `benchmark` command.
+- Added the strongly typed module-level C# convention DSL and converted primary samples to C# conventions.
+- Removed the legacy configuration project and its tests from the active solution in favor of the C# convention DSL.
+- Removed legacy configuration schema/build-transitive assets from the primary package.
+- Removed the legacy build helper project from the active solution.
+- Removed legacy CLI/analyzer/code-fix projects from the active solution and primary package.
+- Removed the template project from the active solution.
+- Updated the Native AOT sample to use the C# convention DSL and restored it to active validation.
+- Expanded the Minimal API sample to cover matching-interface conventions, open generic conventions, required/optional property injection, method injection, and constant/service method arguments.
+- Converted the Worker Service sample to the C# convention DSL and added it to active solution and CI validation.
+- Added C# DSL support for exclusions, explicit and keyed registrations, external/framework-provided services, decorators, architecture rules, diagnostic severity overrides, and generated method/namespace customization.
+- Expanded the Web API sample to demonstrate advanced C# DSL scenarios in a controller-based application.
+- Added interface-name prefix/suffix convention filters and documentation for self, all-interface, interface-filtered, and specific-interface registration scenarios.
+- Added opt-in `InjectlynxDevelopmentReport` build diagnostics for development-time registration investigation.
