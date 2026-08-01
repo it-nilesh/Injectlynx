@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-Injectlynx is a .NET solution (`Injectlynx.slnx`) organized by package responsibility. Production code lives under `src/`: `Injectlynx.Core` holds immutable domain models, `Injectlynx.Generator` reads the C# convention DSL and emits Microsoft DI registrations, and `Injectlynx` is the primary NuGet packaging project. Tests mirror active projects under `tests/`. Samples live in `samples/MinimalApi`, `samples/WebApi`, `samples/WorkerService`, and `samples/NativeAot`; docs are grouped by topic under `docs/`; packaging and validation scripts are in `eng/`.
+Injectlynx is a .NET solution (`Injectlynx.slnx`) organized by package responsibility. Production code lives under `src/`: `Injectlynx.Core` holds immutable domain models, `Injectlynx.Generator` reads the C# convention DSL and emits Microsoft DI registrations, and `Injectlynx` is the primary NuGet packaging project. Reserved future tooling projects live in `src/Injectlynx.Analyzers`, `src/Injectlynx.CodeFixes`, and `src/Injectlynx.Cli`. Tests mirror active projects under `tests/`. Samples live in `samples/MinimalApi`, `samples/WebApi`, `samples/WorkerService`, and `samples/NativeAot`; docs are grouped by topic under `docs/`; packaging and validation scripts are in `eng/`.
 
 ## Build, Test, and Development Commands
 

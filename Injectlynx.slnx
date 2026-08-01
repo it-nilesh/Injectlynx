@@ -9,6 +9,9 @@
     <Project Path="samples/WorkerService/WorkerService.csproj" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/Injectlynx.Analyzers/Injectlynx.Analyzers.csproj" />
+    <Project Path="src/Injectlynx.Cli/Injectlynx.Cli.csproj" />
+    <Project Path="src/Injectlynx.CodeFixes/Injectlynx.CodeFixes.csproj" />
     <Project Path="src/Injectlynx.Core/Injectlynx.Core.csproj" />
     <Project Path="src/Injectlynx.Generator/Injectlynx.Generator.csproj" />
     <Project Path="src/Injectlynx/Injectlynx.csproj" />

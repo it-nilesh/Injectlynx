@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Future IDE code-fix package for Injectlynx analyzer diagnostics.</Description>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Injectlynx.Analyzers\Injectlynx.Analyzers.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -147,9 +147,9 @@ dotnet build samples/WebApi/WebApi.csproj --no-restore
 
 ## Future Tooling Roadmap
 
-- Add `Injectlynx.Analyzers` only if generator diagnostics become too large to maintain inside the source generator.
-- Add `Injectlynx.CodeFixes` after analyzer rules are stable and IDE quick fixes are worth maintaining.
-- Add `Injectlynx.Cli` if users ask for graph or inspection tooling outside the IDE.
+- Keep `src/Injectlynx.Analyzers` reserved for diagnostics that become too large to maintain inside the source generator.
+- Keep `src/Injectlynx.CodeFixes` reserved until analyzer rules are stable and IDE quick fixes are worth maintaining.
+- Keep `src/Injectlynx.Cli` reserved for graph or inspection tooling if users ask for tooling outside the IDE.
 
 ## Validation
 

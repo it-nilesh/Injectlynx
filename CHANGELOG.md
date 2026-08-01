@@ -41,3 +41,4 @@
 - Expanded the Web API sample to demonstrate advanced C# DSL scenarios in a controller-based application.
 - Added interface-name prefix/suffix convention filters and documentation for self, all-interface, interface-filtered, and specific-interface registration scenarios.
 - Added opt-in `InjectlynxDevelopmentReport` build diagnostics for development-time registration investigation.
+- Restored reserved `Injectlynx.Analyzers`, `Injectlynx.CodeFixes`, and `Injectlynx.Cli` source projects for future tooling work.
