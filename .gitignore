@@ -5,20 +5,6 @@ artifacts/
 TestResults/
 BenchmarkDotNet.Artifacts/
 
-# Inactive legacy workspace folders
-benchmarks/
-src/Injectlynx.Analyzers/
-src/Injectlynx.Build/
-src/Injectlynx.Cli/
-src/Injectlynx.CodeFixes/
-tests/Injectlynx.Analyzers.Tests/
-tests/Injectlynx.Cli.Tests/
-tests/Injectlynx.CodeFixes.Tests/
-eng/tools/Injectlynx.PerformanceGate/
-eng/validation/validate-cli-tool-package.sh
-eng/validation/validate-decorator-package.sh
-eng/validation/validate-trimming-package.sh
-
 # User and IDE files
 .vs/
 .vscode/
