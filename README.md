@@ -1,34 +1,52 @@
-# Injectlynx
+# Injectlynx: Compile-Time Dependency Injection for .NET
 
 [![NuGet Version](https://img.shields.io/nuget/v/Injectlynx.svg)](https://www.nuget.org/packages/Injectlynx)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Injectlynx.svg)](https://www.nuget.org/packages/Injectlynx)
 
-Injectlynx is an attribute-free, compile-time dependency injection toolkit for .NET 8, .NET 9, and .NET 10. Developers configure services with a strongly typed C# convention DSL, and a Roslyn source generator emits `Microsoft.Extensions.DependencyInjection` registrations during build.
+[NuGet](https://www.nuget.org/packages/Injectlynx) · [Source](https://github.com/it-nilesh/Injectlynx) · [Contributing](CONTRIBUTING.md) · [MIT License](LICENSE) · [Security](SECURITY.md)
 
-No service attributes, runtime reflection scanning, or custom container are required.
+Injectlynx is an attribute-free, convention-based compile-time dependency injection toolkit for .NET. It uses a Roslyn incremental source generator to create deterministic `Microsoft.Extensions.DependencyInjection` registrations at build time.
 
-[Contributing](CONTRIBUTING.md) · [MIT License](LICENSE) · [Security](SECURITY.md)
-
-## Install
+Developers configure services with a strongly typed C# DSL. Service implementation classes do not need attributes, runtime reflection scanning, or a custom container.
 
 ```bash
 dotnet add package Injectlynx
 ```
 
-NuGet package: https://www.nuget.org/packages/Injectlynx
+## Contents
 
-During source-tree development, samples reference the local `src/Injectlynx` project and generator assemblies directly.
+- [Why Injectlynx?](#why-injectlynx)
+- [Supported targets](#supported-targets)
+- [Quick start](#quick-start)
+- [Registration patterns](#registration-patterns)
+- [Member injection](#member-injection)
+- [Diagnostics and investigation](#diagnostics-and-investigation)
+- [Samples](#samples)
+- [Build and test](#build-and-test)
+
+## Why Injectlynx?
+
+- Attribute-free: keep service classes clean and framework-independent.
+- Compile-time generation: no runtime assembly scanning or reflection-based discovery.
+- IDE friendly: configuration is normal C# with IntelliSense and refactoring support.
+- Native AOT friendly: registrations are generated as source.
+- Deterministic diagnostics: invalid conventions fail during build.
+- Microsoft DI compatible: generated code targets `IServiceCollection`.
 
 ## Supported Targets
 
-Injectlynx ships public DSL assemblies for `netstandard2.0`, `net8.0`, `net9.0`, and `net10.0`. The Roslyn generator is packaged as an analyzer, and the samples/validation suite verify .NET 8, .NET 9, and .NET 10 application projects.
+The public package targets `netstandard2.0`, `net8.0`, `net9.0`, and `net10.0`. Application samples and validation cover .NET 8, .NET 9, .NET 10, and Native AOT.
+
+The generator is delivered as an analyzer inside the `Injectlynx` package, so most applications only install one package.
 
 ## Quick Start
 
-Create a module-level convention class:
+Create a convention module in the project that owns the services:
 
 ```csharp
 using Injectlynx;
+
+namespace Shop.Application;
 
 public static class ApplicationServiceConventions
 {
@@ -43,41 +61,38 @@ public static class ApplicationServiceConventions
 }
 ```
 
-Use the generated extension method:
-
-```csharp
-builder.Services.AddInjectlynxServices();
-```
-
-By default, Injectlynx generates `AddInjectlynxServices()` for every project.
-
-Use `GeneratedMethod("AddInfrastructureServices")` or another project-specific name when multiple libraries expose generated registrations to the same app, or when your team wants a more explicit startup call.
-
-If you also use `GeneratedNamespace("MyApp.DependencyInjection")`, add `using MyApp.DependencyInjection;` in `Program.cs`. The method is generated at build time; developers do not write it manually.
-
-For `OrderService : IOrderService`, Injectlynx generates a registration equivalent to:
+If `OrderService : IOrderService`, Injectlynx generates a registration equivalent to:
 
 ```csharp
 services.AddScoped<IOrderService, OrderService>();
 ```
 
-## Supported DSL Scenarios
+Call the generated extension method during startup:
 
-- Convention registration by namespace, class prefix/suffix, interface prefix/suffix, and open generic assignability.
-- Registration strategies: matching interface, all implemented interfaces, self, or matching interface plus self.
-- Singleton, scoped, and transient lifetimes.
-- Exclusions with `ExcludeNamespace(...)` and `ExcludeType<T>()`.
-- Explicit and keyed registrations with `Register<TService, TImplementation>()` and `WithKey(...)`.
-- External/framework-provided service declarations for dependency diagnostics.
-- Decorators with `Decorate<TService, TDecorator>()`.
-- Architecture guardrails with `ForbidDependency()`.
-- Diagnostic severity overrides with `Diagnostic("INJ401").AsWarning()`.
-- Custom generated method and namespace names.
-- Opt-in property and method injection for cases where constructor injection is not practical.
+```csharp
+builder.Services.AddInjectlynxServices();
+```
 
-## Registration Examples
+`AddInjectlynxServices()` is the default generated method name. Developers do not write it manually. For project-specific startup methods, configure the module:
 
-Concrete class only:
+```csharp
+services
+    .ModuleName("Infrastructure")
+    .GeneratedMethod("AddInfrastructureServices")
+    .GeneratedNamespace("Shop.Infrastructure.DependencyInjection");
+```
+
+Then call it from the consuming app:
+
+```csharp
+using Shop.Infrastructure.DependencyInjection;
+
+builder.Services.AddInfrastructureServices();
+```
+
+## Registration Patterns
+
+Register concrete classes without interfaces:
 
 ```csharp
 services
@@ -87,27 +102,27 @@ services
     .WithSingletonLifetime();
 ```
 
-All implemented interfaces:
+Register by matching interface name:
+
+```csharp
+services
+    .FromNamespace("Shop.Application.Services")
+    .WhereNameEndsWith("Service")
+    .AsMatchingInterface()
+    .WithScopedLifetime();
+```
+
+Register all implemented interfaces:
 
 ```csharp
 services
     .FromNamespace("Shop.Application.Processors")
     .WhereNameEndsWith("Processor")
     .AsImplementedInterfaces()
-    .WithScopedLifetime();
-```
-
-Only interfaces with a naming pattern:
-
-```csharp
-services
-    .FromNamespace("Shop.Application.Stores")
-    .WhereInterfaceNameStartsWith("IRead")
-    .AsImplementedInterfaces()
     .WithTransientLifetime();
 ```
 
-One specific interface from a multi-interface implementation:
+Register a specific interface when one class implements several interfaces:
 
 ```csharp
 services
@@ -115,7 +130,25 @@ services
     .WithScopedLifetime();
 ```
 
-## Development Investigation
+Other supported scenarios include exclusions, explicit registrations, keyed registrations, decorators, external/framework-provided service declarations, architecture rules, diagnostic severity overrides, custom generated method names, and custom generated namespaces.
+
+## Member Injection
+
+Constructor injection should remain the default. Use member injection only when adapting legacy code, framework-created objects, or initialization methods that cannot be expressed cleanly through constructors.
+
+```csharp
+services
+    .For<OrderService>()
+    .InjectProperty(static service => service.Clock)
+    .InjectOptionalProperty(static service => service.Logger)
+    .InjectMethod("Initialize")
+    .WithConstantArgument("sampleName", "minimal-api")
+    .WithServiceArgument<object>("state");
+```
+
+Method parameters can be provided from constants or resolved services. If a method takes `string sampleName, object state`, the configured constant value is passed for `sampleName`, and the service provider resolves `object` for `state`.
+
+## Diagnostics and Investigation
 
 To inspect generated registrations during development:
 
@@ -123,47 +156,63 @@ To inspect generated registrations during development:
 dotnet build -p:InjectlynxDevelopmentReport=true
 ```
 
-For normal console-visible output, temporarily use:
+To show the report in normal console output:
 
 ```bash
 dotnet build -p:InjectlynxDevelopmentReport=warning
 ```
 
-This emits `INJ900` diagnostics such as:
+This emits development diagnostics such as:
 
 ```text
 OrderService -> IOrderService (Scoped)
 ```
 
-Keep this disabled in CI and production builds.
+Keep the development report disabled in CI and production builds unless you are investigating registration behavior.
 
 ## Samples
 
-- `samples/MinimalApi`: broad DSL coverage, including member injection and open generic handlers.
-- `samples/WebApi`: controller-based app with explicit/keyed registrations, decorators, external services, and architecture rules.
-- `samples/WorkerService`: hosted background worker registration.
-- `samples/NativeAot`: Native AOT-focused sample without runtime scanning.
+- `samples/MinimalApi`: conventions, open generic handlers, constructor/property/method injection.
+- `samples/WebApi`: custom generated method, explicit registrations, keyed services, decorators, external services, architecture rules.
+- `samples/WorkerService`: hosted worker dependencies.
+- `samples/NativeAot`: Native AOT validation without runtime scanning.
 
 Build a sample:
 
 ```bash
-dotnet build samples/WebApi/WebApi.csproj --no-restore
+dotnet build samples/WebApi/WebApi.csproj
 ```
 
-## Future Tooling Roadmap
-
-- Keep `src/Injectlynx.Analyzers` reserved for diagnostics that become too large to maintain inside the source generator.
-- Keep `src/Injectlynx.CodeFixes` reserved until analyzer rules are stable and IDE quick fixes are worth maintaining.
-- Keep `src/Injectlynx.Cli` reserved for graph or inspection tooling if users ask for tooling outside the IDE.
-
-## Validation
+## Build and Test
 
 ```bash
-dotnet build Injectlynx.slnx
+dotnet restore Injectlynx.slnx
+dotnet build Injectlynx.slnx --no-restore
 dotnet test Injectlynx.slnx --no-build
 dotnet pack src/Injectlynx/Injectlynx.csproj -c Debug --no-build -o artifacts/packages
-bash eng/release/verify-packages.sh
-bash eng/validation/validate-local-package.sh
 ```
 
-See `docs/configuration/configuration.md` for the full DSL guide.
+Release validation scripts:
+
+```bash
+bash eng/release/verify-packages.sh
+bash eng/validation/validate-local-package.sh
+bash eng/validation/validate-native-aot.sh
+```
+
+## Documentation
+
+- [Configuration DSL](docs/configuration/configuration.md)
+- [Member Injection DSL](docs/configuration/member-injection-dsl.md)
+- [Diagnostics](docs/diagnostics/diagnostics.md)
+- [Generator Architecture](docs/generator/generator.md)
+- [Native AOT](docs/native-aot/native-aot.md)
+- [Packaging](docs/packaging/packaging.md)
+
+## Package Notes
+
+NuGet versions are released from Git tags using `vMAJOR.MINOR.PATCH`, for example `v1.0.1` publishes package version `1.0.1`.
+
+## License
+
+Injectlynx is licensed under the [MIT License](LICENSE).
