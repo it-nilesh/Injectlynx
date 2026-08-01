@@ -25,7 +25,7 @@ write_manifest() {
   local manifest_path
 
   package_name="$(basename "$package")"
-  extract_dir="$(mktemp -d /private/tmp/injectlynx-manifest.XXXXXX)"
+  extract_dir="$(mktemp -d "${TMPDIR:-/tmp}/injectlynx-manifest.XXXXXX")"
   manifest_path="$manifests_dir/$package_name.payload.sha256"
 
   unzip -q "$package" -d "$extract_dir"
