@@ -1,5 +1,8 @@
 # Injectlynx
 
+[![NuGet Version](https://img.shields.io/nuget/v/Injectlynx.svg)](https://www.nuget.org/packages/Injectlynx)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Injectlynx.svg)](https://www.nuget.org/packages/Injectlynx)
+
 Injectlynx is an attribute-free, compile-time dependency injection toolkit for .NET 8, .NET 9, and .NET 10. Developers configure services with a strongly typed C# convention DSL, and a Roslyn source generator emits `Microsoft.Extensions.DependencyInjection` registrations during build.
 
 No service attributes, runtime reflection scanning, or custom container are required.
@@ -11,6 +14,8 @@ No service attributes, runtime reflection scanning, or custom container are requ
 ```bash
 dotnet add package Injectlynx
 ```
+
+NuGet package: https://www.nuget.org/packages/Injectlynx
 
 During source-tree development, samples reference the local `src/Injectlynx` project and generator assemblies directly.
 
