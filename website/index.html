@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Injectlynx is an attribute-free compile-time dependency injection toolkit for .NET that generates Microsoft DI registrations from a strongly typed C# convention DSL."
+    >
+    <meta
+      name="keywords"
+      content=".NET dependency injection, compile-time DI, compile-time dependency injection, C# dependency injection, source generator dependency injection, Roslyn source generator, Microsoft.Extensions.DependencyInjection, IServiceCollection registrations, Native AOT dependency injection, attribute-free DI, convention-based DI, dependency injection generator, .NET source generator, service registration generator, build-time diagnostics, no runtime scanning, trim friendly .NET, ASP.NET Core dependency injection, Minimal API dependency injection, Worker Service dependency injection"
+    >
+    <meta name="author" content="Injectlynx">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#8B5CFF">
+    <link rel="canonical" href="https://it-nilesh.github.io/Injectlynx/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Injectlynx">
+    <meta property="og:title" content="Injectlynx | Compile-Time Dependency Injection for .NET">
+    <meta
+      property="og:description"
+      content="Generate Microsoft DI registrations at build time from clean C# conventions. No attributes, no runtime scanning, Native AOT friendly."
+    >
+    <meta property="og:url" content="https://it-nilesh.github.io/Injectlynx/">
+    <meta property="og:image" content="https://it-nilesh.github.io/Injectlynx/assets/injectlynx-hero.png">
+    <meta property="og:image:alt" content="Abstract compile-time dependency injection pipeline for Injectlynx">
+    <meta property="og:image:width" content="1672">
+    <meta property="og:image:height" content="941">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Injectlynx | Compile-Time Dependency Injection for .NET">
+    <meta
+      name="twitter:description"
+      content="Attribute-free, convention-based compile-time dependency injection for Microsoft.Extensions.DependencyInjection."
+    >
+    <meta name="twitter:image" content="https://it-nilesh.github.io/Injectlynx/assets/injectlynx-hero.png">
+    <title>Injectlynx | Compile-Time Dependency Injection for .NET</title>
+    <link rel="icon" type="image/svg+xml" href="assets/injectlynx-mark.svg">
+    <link rel="apple-touch-icon" href="assets/injectlynx-mark.svg">
+    <script>
+      (() => {
+        let storedTheme = null;
+
+        try {
+          storedTheme = localStorage.getItem("injectlynx-theme");
+        } catch {
+          storedTheme = null;
+        }
+
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = storedTheme || (systemDark ? "dark" : "light");
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Injectlynx",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows, macOS, Linux",
+        "programmingLanguage": "C#",
+        "keywords": ".NET dependency injection, compile-time DI, C# dependency injection, source generator dependency injection, Roslyn source generator, Microsoft.Extensions.DependencyInjection, IServiceCollection registrations, Native AOT dependency injection, attribute-free DI, convention-based DI, service registration generator, no runtime scanning",
+        "description": "Injectlynx is an attribute-free, convention-based compile-time dependency injection toolkit for .NET. It uses a Roslyn incremental source generator to emit Microsoft.Extensions.DependencyInjection registrations during build.",
+        "url": "https://it-nilesh.github.io/Injectlynx/",
+        "logo": "https://it-nilesh.github.io/Injectlynx/assets/injectlynx-logo.svg",
+        "image": "https://it-nilesh.github.io/Injectlynx/assets/injectlynx-hero.png",
+        "license": "https://github.com/it-nilesh/Injectlynx/blob/main/LICENSE",
+        "codeRepository": "https://github.com/it-nilesh/Injectlynx",
+        "downloadUrl": "https://www.nuget.org/packages/Injectlynx",
+        "softwareRequirements": ".NET 8, .NET 9, .NET 10, netstandard2.0",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Attribute-free service registration",
+          "Compile-time Microsoft DI registration generation",
+          "Strongly typed C# convention DSL",
+          "Native AOT friendly dependency injection",
+          "Build-time diagnostics for invalid conventions"
+        ],
+        "sameAs": [
+          "https://github.com/it-nilesh/Injectlynx",
+          "https://www.nuget.org/packages/Injectlynx"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Injectlynx home">
+        <img src="assets/injectlynx-logo.svg" alt="Injectlynx" width="514" height="137">
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#problem">Problem</a>
+        <a href="#why">Why it matters</a>
+        <a href="#use">How to use</a>
+        <a href="#speed">Speed</a>
+        <a href="#install">Install</a>
+      </nav>
+      <div class="header-actions">
+        <a class="nav-cta" href="https://www.nuget.org/packages/Injectlynx">NuGet</a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true"></span>
+        </button>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="#problem">Problem</a>
+        <a href="#why">Why it matters</a>
+        <a href="#use">How to use</a>
+        <a href="#speed">Speed</a>
+        <a href="#install">Install</a>
+        <a href="https://www.nuget.org/packages/Injectlynx">NuGet package</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Injectlynx introduction">
+        <img
+          class="hero-media"
+          src="assets/injectlynx-hero.png"
+          alt=""
+          width="1672"
+          height="941"
+          fetchpriority="high"
+        >
+        <div class="hero-overlay"></div>
+        <div class="hero-motion" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="hero-content">
+          <p class="eyebrow">Attribute-free compile-time DI for .NET</p>
+          <h1>Stop wiring services by hand. Stop scanning them at runtime.</h1>
+          <p class="hero-lede">
+            Injectlynx reads a strongly typed C# convention DSL during build and emits plain
+            <code>IServiceCollection</code> registrations. Your services stay clean, startup stays predictable,
+            and dependency mistakes fail before they reach production.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#install">Install package</a>
+            <a class="button secondary" href="#use">See the workflow</a>
+          </div>
+          <div class="hero-metrics" aria-label="Key benefits">
+            <span>No attributes</span>
+            <span>No runtime scanning</span>
+            <span>Native AOT friendly</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="band intro-band" id="problem">
+        <div class="section-grid">
+          <div>
+            <p class="eyebrow">The problem</p>
+            <h2>DI registration becomes noise exactly when your application needs clarity.</h2>
+          </div>
+          <div class="copy-stack">
+            <p>
+              Every .NET team starts with a few obvious registrations. Then the application grows:
+              services, handlers, clients, decorators, keyed implementations, feature libraries, hosted workers,
+              and Native AOT constraints all pull the startup file in different directions.
+            </p>
+            <p>
+              Manual registration is explicit, but repetitive and easy to forget. Runtime scanning is convenient,
+              but it moves important decisions into reflection paths that are harder to validate, trim, and reason
+              about. Injectlynx gives developers a third path: explicit conventions checked at compile time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band contrast-band">
+        <div class="compare-grid" aria-label="Dependency injection approaches">
+          <article class="compare-card muted">
+            <h3>Manual registration</h3>
+            <p class="code-line">services.AddScoped&lt;IOrderService, OrderService&gt;();</p>
+            <p>Precise, but repetitive. The more services you add, the more startup code becomes a maintenance list.</p>
+          </article>
+          <article class="compare-card muted">
+            <h3>Runtime scanning</h3>
+            <p class="code-line">services.Scan(...);</p>
+            <p>Convenient, but reflection-driven. It can hide registration decisions until runtime and complicate trimming.</p>
+          </article>
+          <article class="compare-card highlight">
+            <h3>Injectlynx</h3>
+            <p class="code-line">builder.Services.AddInjectlynxServices();</p>
+            <p>Convention-based, generated at build time, and emitted as normal Microsoft DI code.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="band" id="why">
+        <div class="section-heading">
+          <p class="eyebrow">Why it is important</p>
+          <h2>It makes dependency injection visible to the compiler.</h2>
+          <p>
+            Injectlynx turns service registration from a runtime discovery concern into generated source your IDE,
+            build, CI, and Native AOT pipeline can understand.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-number">01</span>
+            <h3>Clean application code</h3>
+            <p>Service classes do not need Injectlynx attributes or framework-specific markers. Your domain and application types stay portable.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">02</span>
+            <h3>Build-time confidence</h3>
+            <p>Missing matching interfaces, duplicate registrations, invalid DSL declarations, dependency cycles, and lifetime issues can surface during build.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">03</span>
+            <h3>Microsoft DI compatible</h3>
+            <p>The generator emits direct <code>AddScoped</code>, <code>AddSingleton</code>, and <code>AddTransient</code> registrations for <code>IServiceCollection</code>.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">04</span>
+            <h3>Ready for modern .NET</h3>
+            <p>No runtime assembly scanning means a cleaner path for trimming-sensitive apps and Native AOT validation.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="band workflow-band" id="use">
+        <div class="section-heading align-left">
+          <p class="eyebrow">How developers use it</p>
+          <h2>Write one convention module. Let the generator do the registration work.</h2>
+        </div>
+        <div class="workflow">
+          <div class="steps" aria-label="Injectlynx workflow">
+            <article>
+              <span>1</span>
+              <h3>Install the package</h3>
+              <p>The primary package brings the DSL and the Roslyn source generator into your app.</p>
+            </article>
+            <article>
+              <span>2</span>
+              <h3>Describe your conventions</h3>
+              <p>Use normal C# syntax with IntelliSense: namespaces, name filters, interfaces, lifetimes, exclusions, decorators, and keys.</p>
+            </article>
+            <article>
+              <span>3</span>
+              <h3>Call the generated method</h3>
+              <p>At startup, call <code>AddInjectlynxServices()</code> or your custom generated extension method.</p>
+            </article>
+          </div>
+          <div class="code-panel">
+            <div class="code-tabs" aria-label="Code example tabs">
+              <button class="tab active" type="button" data-tab="convention">Convention</button>
+              <button class="tab" type="button" data-tab="startup">Startup</button>
+              <button class="tab" type="button" data-tab="output">Generated output</button>
+            </div>
+            <pre class="code-sample active" data-panel="convention"><code>using Injectlynx;
+
+namespace Shop.Application;
+
+public static class ApplicationServiceConventions
+{
+    public static void Configure(IServiceConventionBuilder services)
+    {
+        services
+            .FromNamespace("Shop.Application.Services")
+            .WhereNameEndsWith("Service")
+            .AsMatchingInterface()
+            .WithScopedLifetime();
+    }
+}</code></pre>
+            <pre class="code-sample" data-panel="startup"><code>var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddInjectlynxServices();
+
+var app = builder.Build();
+app.Run();</code></pre>
+            <pre class="code-sample" data-panel="output"><code>// Emitted during build.
+services.AddScoped&lt;IOrderService, OrderService&gt;();
+services.AddScoped&lt;ICustomerService, CustomerService&gt;();
+services.AddScoped&lt;IInvoiceService, InvoiceService&gt;();</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="band speed-band" id="speed">
+        <div class="section-grid">
+          <div>
+            <p class="eyebrow">How development gets faster</p>
+            <h2>Less registration work, earlier feedback, cleaner modules.</h2>
+          </div>
+          <div class="speed-list">
+            <article>
+              <h3>Add a service without editing startup</h3>
+              <p>Create <code>OrderService : IOrderService</code> in the selected namespace and the convention picks it up at build time.</p>
+            </article>
+            <article>
+              <h3>Refactor with confidence</h3>
+              <p>The DSL is C#, so type-based registrations work with rename refactoring and IDE navigation.</p>
+            </article>
+            <article>
+              <h3>Debug conventions quickly</h3>
+              <p>Enable the development report to see entries like <code>OrderService -&gt; IOrderService (Scoped)</code>.</p>
+            </article>
+            <article>
+              <h3>Scale across projects</h3>
+              <p>Application, infrastructure, and feature libraries can each publish a generated registration method with its own namespace.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band problem-solved">
+        <div class="solution-copy">
+          <p class="eyebrow">What it solves</p>
+          <h2>Injectlynx removes the boring part of DI without removing developer control.</h2>
+          <p>
+            It solves service registration drift: the gap between the classes your team writes and the DI graph your
+            application actually starts with. Instead of trusting humans to keep a long startup list synchronized, or
+            trusting runtime scanning to discover the right shape, Injectlynx captures your team’s rules once and
+            regenerates deterministic registration code as the codebase changes.
+          </p>
+        </div>
+        <div class="solution-map" aria-label="Injectlynx value map">
+          <div class="map-node source">C# conventions</div>
+          <div class="map-line"><span></span></div>
+          <div class="map-node generator">Roslyn generator</div>
+          <div class="map-line accent"><span></span></div>
+          <div class="map-node output">Microsoft DI code</div>
+        </div>
+      </section>
+
+      <section class="band install-band" id="install">
+        <div class="install-copy">
+          <p class="eyebrow">Start now</p>
+          <h2>Add compile-time service registration to your next .NET module.</h2>
+          <p>
+            Injectlynx targets <code>netstandard2.0</code>, <code>net8.0</code>, <code>net9.0</code>, and <code>net10.0</code>.
+            The generator ships inside the primary package, so most applications install one dependency.
+          </p>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <pre><code>dotnet add package Injectlynx
+
+dotnet build -p:InjectlynxDevelopmentReport=true</code></pre>
+        </div>
+        <div class="final-actions">
+          <a class="button primary" href="https://www.nuget.org/packages/Injectlynx">Open NuGet</a>
+          <a class="button secondary" href="https://github.com/it-nilesh/Injectlynx#readme">Read documentation</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Injectlynx is licensed under MIT. Built for developers who want DI to be explicit, fast, and compiler-friendly.</p>
+      <div>
+        <a href="https://github.com/it-nilesh/Injectlynx#readme">Docs</a>
+        <a href="https://github.com/it-nilesh/Injectlynx">Source</a>
+        <a href="https://www.nuget.org/packages/Injectlynx">NuGet</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
