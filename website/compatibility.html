@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Injectlynx compatibility matrix for package targets, samples, Native AOT, plugin loading, and supported .NET versions.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#8B5CFF">
+    <link rel="canonical" href="https://injectlynx.inilesh.dev/compatibility.html">
+    <title>Injectlynx Compatibility Matrix</title>
+    <link rel="icon" type="image/svg+xml" href="assets/injectlynx-mark.svg">
+    <script>(() => { let t = null; try { t = localStorage.getItem("injectlynx-theme"); } catch { t = null; } document.documentElement.dataset.theme = t || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); })();</script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Injectlynx home"><img src="assets/injectlynx-logo.svg" alt="Injectlynx" width="514" height="137"></a>
+      <nav class="nav" aria-label="Primary navigation"><a href="index.html">Home</a><a href="index.html#docs">Docs</a></nav>
+      <div class="header-actions"><a class="nav-cta" href="https://www.nuget.org/packages/Injectlynx">NuGet</a><button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true"></span></button><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button></div>
+      <div class="mobile-menu" id="mobile-menu"><a href="index.html">Home</a><a href="index.html#docs">Docs</a><a href="community.html">Community</a></div>
+    </header>
+    <main class="page-main">
+      <section class="page-hero"><p class="eyebrow">Compatibility</p><h1>Supported target frameworks and validation paths.</h1><p>Use this matrix when choosing a target, testing a sample, or planning a release.</p></section>
+      <section class="band page-band">
+        <div class="matrix-wrap">
+          <table class="compat-table">
+            <caption>Injectlynx support matrix</caption>
+            <thead><tr><th>Capability</th><th>Target</th><th>Status</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Main package</td><td>netstandard2.0</td><td>Supported</td><td>Library compatibility target.</td></tr>
+              <tr><td>Main package</td><td>net8.0, net9.0, net10.0</td><td>Supported</td><td>Modern application targets.</td></tr>
+              <tr><td>Source generator</td><td>Analyzer asset</td><td>Supported</td><td>Packaged with the main NuGet package.</td></tr>
+              <tr><td>Samples</td><td>.NET 8, .NET 9, .NET 10</td><td>Validated</td><td>Minimal API, Web API, Worker Service, Native AOT, and Plugin samples.</td></tr>
+              <tr><td>Native AOT</td><td>net10.0 validation path</td><td>Validated</td><td>Default compile-time DI path avoids runtime scanning.</td></tr>
+              <tr><td>Dynamic plugins</td><td>.NET runtime hosts</td><td>Opt-in</td><td>Runtime assembly loading has different AOT and trimming tradeoffs.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><p>Compatibility is verified through builds, tests, samples, package checks, and release scripts.</p><div><a href="index.html#docs">Docs</a><a href="https://github.com/it-nilesh/Injectlynx">Source</a></div></footer>
+    <script src="script.js"></script>
+  </body>
+</html>

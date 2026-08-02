@@ -226,22 +226,7 @@ jobs:
 
       - name: Write release notes
         shell: bash
-        run: |
-          version="${GITHUB_REF_NAME#v}"
-
-          cat > release-notes.md <<EOF
-          Injectlynx ${version} publishes the current stable compile-time dependency injection package to NuGet.org.
-
-          ## NuGet Package
-
-          - [Injectlynx](https://www.nuget.org/packages/Injectlynx)
-
-          ## Supported Application Targets
-
-          - .NET 8
-          - .NET 9
-          - .NET 10
-          EOF
+        run: bash eng/release/generate-release-notes.sh "${GITHUB_REF_NAME#v}" CHANGELOG.md release-notes.md
 
       - name: Create or update GitHub release
         shell: bash

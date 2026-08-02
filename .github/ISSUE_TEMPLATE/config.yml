@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://injectlynx.inilesh.dev/docs.html
+    about: Read Injectlynx guides and references before opening an issue.
+  - name: NuGet package
+    url: https://www.nuget.org/packages/Injectlynx
+    about: Check the published package version and metadata.

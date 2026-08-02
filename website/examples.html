@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Live Injectlynx examples for Minimal API, Web API, Worker Service, Native AOT, and dynamic plugin loading in .NET.">
+    <meta name="keywords" content="Injectlynx examples, Minimal API dependency injection, Web API dependency injection, Worker Service DI, Native AOT DI, dynamic plugin loading .NET">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#8B5CFF">
+    <link rel="canonical" href="https://injectlynx.inilesh.dev/examples.html">
+    <meta property="og:title" content="Injectlynx Examples">
+    <meta property="og:description" content="Minimal API, Web API, Worker Service, Native AOT, and plugin examples for Injectlynx.">
+    <meta property="og:url" content="https://injectlynx.inilesh.dev/examples.html">
+    <meta property="og:image" content="https://injectlynx.inilesh.dev/assets/injectlynx-hero.png">
+    <title>Injectlynx Examples | Minimal API, Web API, Worker Service, Native AOT</title>
+    <link rel="icon" type="image/svg+xml" href="assets/injectlynx-mark.svg">
+    <script>(() => { let t = null; try { t = localStorage.getItem("injectlynx-theme"); } catch { t = null; } document.documentElement.dataset.theme = t || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); })();</script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Injectlynx home"><img src="assets/injectlynx-logo.svg" alt="Injectlynx" width="514" height="137"></a>
+      <nav class="nav" aria-label="Primary navigation"><a href="index.html">Home</a><a href="index.html#docs">Docs</a></nav>
+      <div class="header-actions"><a class="nav-cta" href="https://www.nuget.org/packages/Injectlynx">NuGet</a><button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true"></span></button><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button></div>
+      <div class="mobile-menu" id="mobile-menu"><a href="index.html">Home</a><a href="index.html#docs">Docs</a><a href="community.html">Community</a></div>
+    </header>
+    <main class="page-main">
+      <section class="page-hero"><p class="eyebrow">Live examples</p><h1>See Injectlynx in the application shapes developers ship every day.</h1><p>Each sample is a buildable project in the repository, using the same main package and generated Microsoft DI registrations.</p></section>
+      <section class="band page-band">
+        <div class="example-grid">
+          <article class="example-card"><span>Minimal API</span><h2>Conventions plus member injection</h2><p>Matching interfaces, open generics, property injection, method injection, and generated startup registration.</p><pre><code>dotnet build samples/MinimalApi/MinimalApi.csproj -f net10.0</code></pre><a href="https://github.com/it-nilesh/Injectlynx/tree/main/samples/MinimalApi">Open sample</a></article>
+          <article class="example-card"><span>Web API</span><h2>Advanced registration rules</h2><p>Custom generated methods, keyed services, decorators, external services, and architecture rules.</p><pre><code>bash eng/validation/validate-webapi-sample.sh</code></pre><a href="https://github.com/it-nilesh/Injectlynx/tree/main/samples/WebApi">Open sample</a></article>
+          <article class="example-card"><span>Worker Service</span><h2>Hosted worker dependencies</h2><p>Generated application-service registrations inside a background worker project.</p><pre><code>bash eng/validation/validate-worker-service-sample.sh</code></pre><a href="https://github.com/it-nilesh/Injectlynx/tree/main/samples/WorkerService">Open sample</a></article>
+          <article class="example-card"><span>Native AOT</span><h2>No runtime scanning path</h2><p>Direct generated registrations for trimming-sensitive and Native AOT deployments.</p><pre><code>bash eng/validation/validate-native-aot.sh linux-x64 net10.0</code></pre><a href="https://github.com/it-nilesh/Injectlynx/tree/main/samples/NativeAot">Open sample</a></article>
+          <article class="example-card"><span>Dynamic plugins</span><h2>Opt-in runtime extension</h2><p>Loads a plugin DLL that implements <code>IInjectlynxPlugin</code> without a required JSON manifest.</p><pre><code>dotnet run --project samples/PluginHost/PluginHost.csproj -f net10.0 -- samples/PluginSample/bin/Debug/net10.0</code></pre><a href="https://github.com/it-nilesh/Injectlynx/tree/main/samples/PluginHost">Open sample</a></article>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><p>Examples are kept buildable so docs and real project behavior stay close.</p><div><a href="index.html#docs">Docs</a><a href="https://github.com/it-nilesh/Injectlynx">Source</a></div></footer>
+    <script src="script.js"></script>
+  </body>
+</html>

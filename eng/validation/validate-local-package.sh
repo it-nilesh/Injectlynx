@@ -25,6 +25,7 @@ fi
 echo "Using package: $package_path"
 
 mkdir -p "$work_dir/Consumer/Services"
+mkdir -p "$work_dir/NamedConsumer/Services"
 
 cat > "$work_dir/Consumer/Consumer.csproj" <<EOF
 <Project Sdk="Microsoft.NET.Sdk.Web">
@@ -92,5 +93,79 @@ EOF
 echo "Building fresh consumer..."
 for tfm in net8.0 net9.0 net10.0; do
   dotnet build "$work_dir/Consumer/Consumer.csproj" -f "$tfm" -v minimal
+done
+
+cat > "$work_dir/NamedConsumer/NamedConsumer.csproj" <<EOF
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RestoreSources>$packages_dir;https://api.nuget.org/v3/index.json</RestoreSources>
+    <RestorePackagesPath>$work_dir/packages</RestorePackagesPath>
+    <RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Injectlynx" Version="$package_version" />
+  </ItemGroup>
+</Project>
+EOF
+
+cat > "$work_dir/NamedConsumer/ApplicationServiceConventions.cs" <<'EOF'
+using Injectlynx;
+
+namespace NamedConsumer;
+
+public static class ApplicationServiceConventions
+{
+    public static void Configure(IServiceConventionBuilder services)
+    {
+        services
+            .ModuleName("Named")
+            .GeneratedMethod("AddNamedConsumerServices")
+            .GeneratedNamespace("NamedConsumer.DependencyInjection");
+
+        services
+            .FromNamespace("NamedConsumer.Services")
+            .WhereNameEndsWith("Service")
+            .AsMatchingInterface()
+            .WithScopedLifetime();
+    }
+}
+EOF
+
+cat > "$work_dir/NamedConsumer/Program.cs" <<'EOF'
+using NamedConsumer.DependencyInjection;
+using NamedConsumer.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddNamedConsumerServices();
+
+var app = builder.Build();
+app.MapGet("/", (IReportService reports) => reports.GetName());
+app.Run();
+EOF
+
+cat > "$work_dir/NamedConsumer/Services/IReportService.cs" <<'EOF'
+namespace NamedConsumer.Services;
+
+public interface IReportService
+{
+    string GetName();
+}
+EOF
+
+cat > "$work_dir/NamedConsumer/Services/ReportService.cs" <<'EOF'
+namespace NamedConsumer.Services;
+
+public sealed class ReportService : IReportService
+{
+    public string GetName() => "report";
+}
+EOF
+
+echo "Building fresh named consumer..."
+for tfm in net8.0 net9.0 net10.0; do
+  dotnet build "$work_dir/NamedConsumer/NamedConsumer.csproj" -f "$tfm" -v minimal
 done
 echo "Local package validation succeeded."

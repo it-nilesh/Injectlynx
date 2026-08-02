@@ -5,6 +5,8 @@
   <Folder Name="/samples/">
     <Project Path="samples/MinimalApi/MinimalApi.csproj" />
     <Project Path="samples/NativeAot/NativeAot.csproj" />
+    <Project Path="samples/PluginHost/PluginHost.csproj" />
+    <Project Path="samples/PluginSample/PluginSample.csproj" />
     <Project Path="samples/WebApi/WebApi.csproj" />
     <Project Path="samples/WorkerService/WorkerService.csproj" />
   </Folder>
@@ -17,8 +19,11 @@
     <Project Path="src/Injectlynx/Injectlynx.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Injectlynx.Analyzers.Tests/Injectlynx.Analyzers.Tests.csproj" />
     <Project Path="tests/Injectlynx.ArchitectureTests/Injectlynx.ArchitectureTests.csproj" />
+    <Project Path="tests/Injectlynx.Cli.Tests/Injectlynx.Cli.Tests.csproj" />
     <Project Path="tests/Injectlynx.Core.Tests/Injectlynx.Core.Tests.csproj" />
     <Project Path="tests/Injectlynx.Generator.Tests/Injectlynx.Generator.Tests.csproj" />
+    <Project Path="tests/Injectlynx.Plugins.Tests/Injectlynx.Plugins.Tests.csproj" />
   </Folder>
 </Solution>

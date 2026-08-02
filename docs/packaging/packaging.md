@@ -10,6 +10,7 @@ The primary package is represented by `src/Injectlynx/Injectlynx.csproj`. It pac
 
 - `Injectlynx.dll` under `lib/netstandard2.0`, `lib/net8.0`, `lib/net9.0`, and `lib/net10.0` with the public `IServiceConventionBuilder` DSL surface.
 - `Injectlynx.Generator.dll` under `analyzers/dotnet/cs`.
+- `Injectlynx.Analyzers.dll` and `Injectlynx.CodeFixes.dll` under `analyzers/dotnet/cs`.
 - `Injectlynx.Core.dll` under `analyzers/dotnet/cs`.
 - Portable PDBs for Injectlynx generator assemblies under `analyzers/dotnet/cs`.
 
@@ -30,4 +31,7 @@ bash eng/release/verify-packages.sh
 bash eng/release/verify-vulnerabilities.sh
 bash eng/release/generate-sbom.sh
 bash eng/release/verify-package-manifests.sh
+bash eng/validation/validate-trimming.sh
 ```
+
+`eng/validation/validate-local-package.sh` creates fresh temporary consumers and builds them across `net8.0`, `net9.0`, and `net10.0`. It validates both the default `AddInjectlynxServices()` method and custom generated method/namespace usage.
