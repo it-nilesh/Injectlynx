@@ -21,3 +21,8 @@ dotnet publish "$repo_root/samples/NativeAot/NativeAot.csproj" -c Release -f "$t
 
 publish_dir="$repo_root/samples/NativeAot/bin/Release/$tfm/$rid/publish"
 echo "Native AOT publish output: $publish_dir"
+
+if [[ -x "$publish_dir/NativeAot" ]]; then
+  echo "Running Native AOT sample..."
+  "$publish_dir/NativeAot"
+fi

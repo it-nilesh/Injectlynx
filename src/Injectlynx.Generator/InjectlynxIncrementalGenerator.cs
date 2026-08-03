@@ -27,7 +27,7 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor MissingMatchingInterface = new(
         "INJ001",
         "Missing matching interface",
-        "{0} matches an Injectlynx convention but does not implement {1}",
+        "{0} matches an Injectlynx convention but does not implement {1}. Fix by adding {1}, changing the convention to AsSelf(), or using Register<TService, TImplementation>() for an explicit contract.",
         "Injectlynx.Registration",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
@@ -36,7 +36,7 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor AmbiguousContract = new(
         "INJ002",
         "Ambiguous service contract",
-        "{0} matches multiple interfaces named {1}; add an explicit override or narrow the convention",
+        "{0} matches multiple interfaces named {1}. Fix by narrowing the convention with interface filters, using Register<TService, TImplementation>(), or removing the duplicate matching interface.",
         "Injectlynx.Registration",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
@@ -45,7 +45,7 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor DuplicateRegistration = new(
         "INJ003",
         "Duplicate service registration",
-        "{0} is registered by multiple implementations in module {1}",
+        "{0} is registered by multiple implementations in module {1}. Fix by narrowing conventions, excluding extra implementations, using keys, or registering one implementation explicitly.",
         "Injectlynx.Registration",
         DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
@@ -54,16 +54,25 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor MissingImplementedInterfaces = new(
         "INJ004",
         "Missing implemented interfaces",
-        "{0} matches an Injectlynx convention but no implemented interfaces match the convention",
+        "{0} matches an Injectlynx convention but no implemented interfaces match the convention. Fix by implementing the intended interface, relaxing interface filters, or using AsSelf().",
         "Injectlynx.Registration",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
         description: "A service matched an ImplementedInterfaces convention but no service contracts were found.");
 
+    private static readonly DiagnosticDescriptor KeyedRegistrationUnsupportedTarget = new(
+        "INJ005",
+        "Keyed registration target may be unsupported",
+        "Keyed registration for {0} targets {1}, but target framework {2} may not provide Microsoft DI keyed-service APIs. Target net8.0 or later, remove WithKey(), or ensure compatible Microsoft.Extensions.DependencyInjection APIs are referenced.",
+        "Injectlynx.Registration",
+        DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Keyed Microsoft DI registration APIs are safest on .NET 8 or later.");
+
     private static readonly DiagnosticDescriptor NoAccessibleConstructor = new(
         "INJ101",
         "No public constructor",
-        "{0} is registered by Injectlynx but has no public constructor",
+        "{0} is registered by Injectlynx but has no public constructor. Fix by adding one public constructor or excluding the type from the convention.",
         "Injectlynx.Constructors",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
@@ -72,7 +81,7 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor AmbiguousConstructor = new(
         "INJ102",
         "Ambiguous constructors",
-        "{0} has multiple public constructors; keep one public constructor or make the intended constructor explicit",
+        "{0} has multiple public constructors. Fix by keeping one public constructor or making extra constructors non-public.",
         "Injectlynx.Constructors",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
@@ -81,7 +90,7 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor MissingDependency = new(
         "INJ201",
         "Missing dependency",
-        "{0} depends on {1}, but no Injectlynx registration is generated for that dependency",
+        "{0} depends on {1}, but no Injectlynx registration is generated for that dependency. Fix by adding a convention or explicit registration for {1}, declaring it External<TService>(), or marking it FrameworkProvided<TService>().",
         "Injectlynx.Dependencies",
         DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
@@ -90,7 +99,7 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor CircularDependency = new(
         "INJ202",
         "Circular dependency",
-        "Circular dependency detected: {0}",
+        "Circular dependency detected: {0}. Fix by breaking the constructor dependency cycle or introducing a factory/lazy boundary.",
         "Injectlynx.Dependencies",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
@@ -99,7 +108,7 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor SelfDependency = new(
         "INJ203",
         "Self dependency",
-        "{0} depends on itself through {1}",
+        "{0} depends on itself through {1}. Fix by depending on a different abstraction or removing the self-referential constructor dependency.",
         "Injectlynx.Dependencies",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
@@ -108,7 +117,7 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor CaptiveDependency = new(
         "INJ210",
         "Captive scoped dependency",
-        "Singleton {0} depends on scoped service {1}",
+        "Singleton {0} depends on scoped service {1}. Fix by making {0} scoped/transient or making {1} singleton-safe.",
         "Injectlynx.Lifetimes",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
@@ -117,7 +126,7 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor MissingDecoratorTarget = new(
         "INJ301",
         "Decorator target is not generated",
-        "Decorator {0} targets {1}, but no Injectlynx registration is generated for that service contract",
+        "Decorator {0} targets {1}, but no Injectlynx registration is generated for that service contract. Fix by registering {1}, removing the decorator, or changing the decorator target.",
         "Injectlynx.Decorators",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
@@ -126,11 +135,29 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
     private static readonly DiagnosticDescriptor InvalidDecoratorContract = new(
         "INJ302",
         "Decorator does not implement service contract",
-        "Decorator {0} does not implement configured service contract {1}",
+        "Decorator {0} does not implement configured service contract {1}. Fix by implementing {1} on the decorator or changing Decorate<TService, TDecorator>().",
         "Injectlynx.Decorators",
         DiagnosticSeverity.Error,
         isEnabledByDefault: true,
         description: "A decorator must implement the same service contract it decorates.");
+
+    private static readonly DiagnosticDescriptor DecoratorKeyedTargetUnsupported = new(
+        "INJ303",
+        "Decorator targets only keyed registrations",
+        "Decorator {0} targets {1}, but only keyed registrations are generated for that service contract. Decorators are applied only to unkeyed registrations; add an unkeyed registration or remove the decorator.",
+        "Injectlynx.Decorators",
+        DiagnosticSeverity.Error,
+        isEnabledByDefault: true,
+        description: "Injectlynx does not silently apply unkeyed decorators to keyed registrations.");
+
+    private static readonly DiagnosticDescriptor DecoratorCaptiveDependency = new(
+        "INJ304",
+        "Decorator captures scoped dependency",
+        "Decorator {0} is applied to singleton service {1} and depends on scoped service {2}. Fix by making {1} scoped/transient or removing the scoped dependency from the decorator.",
+        "Injectlynx.Decorators",
+        DiagnosticSeverity.Error,
+        isEnabledByDefault: true,
+        description: "A decorator used for a singleton registration must not capture scoped dependencies.");
 
     private static readonly DiagnosticDescriptor ForbiddenDependency = new(
         "INJ401",
@@ -188,8 +215,13 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
         var severity = string.Equals(value, "warning", StringComparison.OrdinalIgnoreCase)
             ? DiagnosticSeverityModel.Warning
             : DiagnosticSeverityModel.Info;
+        var comments = !optionsProvider.GlobalOptions.TryGetValue("build_property.InjectlynxRegistrationComments", out var commentsValue) ||
+            !IsFalsy(commentsValue);
+        var reportSource = optionsProvider.GlobalOptions.TryGetValue("build_property.InjectlynxReportSource", out var reportSourceValue) &&
+            IsTruthy(reportSourceValue);
+        optionsProvider.GlobalOptions.TryGetValue("build_property.TargetFramework", out var targetFramework);
 
-        return new GeneratorOptions(enabled, severity);
+        return new GeneratorOptions(enabled, severity, comments, reportSource, targetFramework);
     }
 
     private static bool IsTruthy(string? value) =>
@@ -197,6 +229,13 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
         (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(value, "1", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(value, "yes", StringComparison.OrdinalIgnoreCase));
+
+    private static bool IsFalsy(string? value) =>
+        value is not null &&
+        (string.Equals(value, "false", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(value, "0", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(value, "no", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(value, "off", StringComparison.OrdinalIgnoreCase));
 
     private static bool MightBeConventionDslMethod(MethodDeclarationSyntax declaration)
     {
@@ -1228,13 +1267,20 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
         {
             ReportDiscoveryDiagnostics(context, configuration, module, candidates, configuration.Modules);
             var registrations = DiscoverRegistrations(module, candidates, context.CancellationToken);
+            ReportKeyedRegistrationDiagnostics(context, configuration, options, registrations);
             ReportDecoratorDiagnostics(context, configuration, module, candidates, registrations);
             registrations = ApplyDecorators(module, registrations);
             registrations = ApplyMemberInjections(context, configuration, module, candidates, registrations);
             ReportConstructorDiagnostics(context, configuration, module, candidates, registrations);
             ReportArchitectureDiagnostics(context, configuration, candidates, registrations);
             ReportDevelopmentRegistrations(context, options, module, registrations);
-            var source = RegistrationSourceWriter.Write(module, registrations);
+            if (options.ReportSource)
+            {
+                var reportSource = RegistrationReportSourceWriter.Write(module, registrations);
+                context.AddSource("Injectlynx." + Sanitize(module.Identity.Name) + ".Report.g.cs", SourceText.From(reportSource, Encoding.UTF8));
+            }
+
+            var source = RegistrationSourceWriter.Write(module, registrations, options.RegistrationComments);
             context.AddSource("Injectlynx." + Sanitize(module.Identity.Name) + ".g.cs", SourceText.From(source, Encoding.UTF8));
         }
     }
@@ -1554,6 +1600,53 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
                 cycle.Location,
                 cycle.Path));
         }
+    }
+
+    private static void ReportKeyedRegistrationDiagnostics(
+        SourceProductionContext context,
+        InjectlynxConfiguration configuration,
+        GeneratorOptions options,
+        ImmutableArray<GeneratedRegistration> registrations)
+    {
+        var targetFramework = options.TargetFramework;
+        if (targetFramework is null ||
+            string.IsNullOrWhiteSpace(targetFramework) ||
+            IsKeyedRegistrationSupportedTargetFramework(targetFramework))
+        {
+            return;
+        }
+
+        foreach (var registration in registrations
+            .Where(static item => item.Key is not null)
+            .OrderBy(static item => item.Contract, StringComparer.Ordinal)
+            .ThenBy(static item => item.Implementation, StringComparer.Ordinal))
+        {
+            context.ReportDiagnostic(Diagnostic.Create(
+                ApplyDiagnosticOverride(KeyedRegistrationUnsupportedTarget, configuration),
+                Location.None,
+                registration.Contract,
+                registration.Implementation,
+                options.TargetFramework));
+        }
+    }
+
+    private static bool IsKeyedRegistrationSupportedTargetFramework(string targetFramework)
+    {
+        if (!targetFramework.StartsWith("net", StringComparison.OrdinalIgnoreCase) ||
+            targetFramework.StartsWith("netstandard", StringComparison.OrdinalIgnoreCase) ||
+            targetFramework.StartsWith("netcoreapp", StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        var versionText = targetFramework.Substring("net".Length);
+        var dotIndex = versionText.IndexOf('.');
+        if (dotIndex >= 0)
+        {
+            versionText = versionText.Substring(0, dotIndex);
+        }
+
+        return int.TryParse(versionText, out var majorVersion) && majorVersion >= 8;
     }
 
     private static void ReportArchitectureDiagnostics(
@@ -1940,19 +2033,42 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
         ImmutableArray<ServiceCandidate> candidates,
         ImmutableArray<GeneratedRegistration> registrations)
     {
-        var contracts = registrations
+        var unkeyedContracts = registrations
+            .Where(static item => item.Key is null)
             .Select(static item => item.Contract)
             .ToImmutableHashSet(StringComparer.Ordinal);
+        var keyedContracts = registrations
+            .Where(static item => item.Key is not null)
+            .Select(static item => item.Contract)
+            .ToImmutableHashSet(StringComparer.Ordinal);
+        var registrationsByContract = registrations
+            .Where(static item => item.Key is null)
+            .GroupBy(static item => item.Contract, StringComparer.Ordinal)
+            .ToDictionary(static item => item.Key, static item => item.First(), StringComparer.Ordinal);
         var candidateByImplementation = candidates
             .GroupBy(static item => item.FullyQualifiedMetadataName, StringComparer.Ordinal)
             .ToDictionary(static item => item.Key, static item => item.First(), StringComparer.Ordinal);
+        var externallyProvidedContracts = configuration.ExternalServices
+            .Select(static item => NormalizeConfiguredTypeName(item.Contract.FullName))
+            .Concat(configuration.FrameworkProvidedServices.Select(static item => NormalizeConfiguredTypeName(item.Contract.FullName)))
+            .ToImmutableHashSet(StringComparer.Ordinal);
 
         foreach (var decorator in module.Decorators)
         {
             var contract = NormalizeConfiguredTypeName(decorator.Contract.FullName);
             var decoratorType = NormalizeConfiguredTypeName(decorator.Decorator.FullName);
-            if (!contracts.Contains(contract))
+            if (!unkeyedContracts.Contains(contract))
             {
+                if (keyedContracts.Contains(contract))
+                {
+                    context.ReportDiagnostic(Diagnostic.Create(
+                        ApplyDiagnosticOverride(DecoratorKeyedTargetUnsupported, configuration),
+                        Location.None,
+                        decoratorType,
+                        contract));
+                    continue;
+                }
+
                 context.ReportDiagnostic(Diagnostic.Create(
                     ApplyDiagnosticOverride(MissingDecoratorTarget, configuration),
                     Location.None,
@@ -1969,6 +2085,41 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
                     decoratorCandidate.Location,
                     decoratorType,
                     contract));
+                continue;
+            }
+
+            if (candidateByImplementation.TryGetValue(decoratorType, out decoratorCandidate) &&
+                registrationsByContract.TryGetValue(contract, out var targetRegistration) &&
+                targetRegistration.Lifetime == ServiceLifetimeModel.Singleton)
+            {
+                var publicConstructors = decoratorCandidate.Constructors
+                    .Where(static item => item.IsPublic)
+                    .ToImmutableArray();
+                if (publicConstructors.Length != 1)
+                {
+                    continue;
+                }
+
+                foreach (var dependency in publicConstructors[0].Dependencies)
+                {
+                    if (IsFrameworkProvidedDependency(dependency) ||
+                        externallyProvidedContracts.Contains(dependency) ||
+                        string.Equals(dependency, contract, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    if (registrationsByContract.TryGetValue(dependency, out var dependencyRegistration) &&
+                        dependencyRegistration.Lifetime == ServiceLifetimeModel.Scoped)
+                    {
+                        context.ReportDiagnostic(Diagnostic.Create(
+                            ApplyDiagnosticOverride(DecoratorCaptiveDependency, configuration),
+                            publicConstructors[0].Location ?? decoratorCandidate.Location,
+                            decoratorType,
+                            contract,
+                            dependency));
+                    }
+                }
             }
         }
     }
@@ -2694,7 +2845,10 @@ public sealed class InjectlynxIncrementalGenerator : IIncrementalGenerator
 
     private sealed record GeneratorOptions(
         bool DevelopmentReport,
-        DiagnosticSeverityModel DevelopmentReportSeverity);
+        DiagnosticSeverityModel DevelopmentReportSeverity,
+        bool RegistrationComments,
+        bool ReportSource,
+        string? TargetFramework);
 
     private sealed record DslModuleInput(
         string Name,

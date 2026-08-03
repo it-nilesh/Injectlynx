@@ -176,6 +176,7 @@ Keep the development report disabled in CI and production builds unless you are 
 - `samples/WebApi`: custom generated method, explicit registrations, keyed services, decorators, external services, architecture rules.
 - `samples/WorkerService`: hosted worker dependencies.
 - `samples/NativeAot`: Native AOT validation without runtime scanning.
+- `samples/PluginHost` and `samples/PluginSample`: opt-in runtime plugin loading through the main `Injectlynx` package.
 
 Build a sample:
 
@@ -198,15 +199,31 @@ Release validation scripts:
 bash eng/release/verify-packages.sh
 bash eng/validation/validate-local-package.sh
 bash eng/validation/validate-native-aot.sh
+bash eng/validation/validate-trimming.sh
 ```
 
 ## Documentation
 
+- [Positioning](docs/guides/positioning.md)
+- [Registration Approaches](docs/guides/registration-approaches.md)
+- [Migrate From Manual Registration](docs/guides/migrate-from-manual-registration.md)
+- [Migrate From Runtime Scanning](docs/guides/migrate-from-runtime-scanning.md)
+- [Troubleshooting](docs/guides/troubleshooting.md)
+- [Generated Output Examples](docs/reference/generated-output-examples.md)
 - [Configuration DSL](docs/configuration/configuration.md)
 - [Member Injection DSL](docs/configuration/member-injection-dsl.md)
 - [Diagnostics](docs/diagnostics/diagnostics.md)
+- [Analyzers And Code Fixes](docs/analyzers/analyzers.md)
 - [Generator Architecture](docs/generator/generator.md)
+- [Generator Transparency](docs/generator/transparency.md)
+- [CLI Inspection Tooling](docs/cli/cli.md)
+- [Performance And Benchmarks](docs/benchmarks/performance.md)
 - [Native AOT](docs/native-aot/native-aot.md)
+- [Dynamic Plugin Loading](docs/plugins/dynamic-plugin-loading.md)
+- [Compatibility Matrix](docs/compatibility.md)
+- [Release Process](docs/release.md)
+- [Community](docs/community.md)
+- [Common Architecture Styles](docs/guides/common-architecture-styles.md)
 - [Packaging](docs/packaging/packaging.md)
 
 ## Package Notes

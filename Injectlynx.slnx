@@ -6,6 +6,8 @@
   <Folder Name="/samples/">
     <Project Path="samples/MinimalApi/MinimalApi.csproj" />
     <Project Path="samples/NativeAot/NativeAot.csproj" />
+    <Project Path="samples/PluginHost/PluginHost.csproj" />
+    <Project Path="samples/PluginSample/PluginSample.csproj" />
     <Project Path="samples/WebApi/WebApi.csproj" />
     <Project Path="samples/WorkerService/WorkerService.csproj" />
   </Folder>

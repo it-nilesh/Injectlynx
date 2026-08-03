@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Contribute to Injectlynx with useful bug reports, focused feature requests, pull requests, and release-ready documentation.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#8B5CFF">
+    <link rel="canonical" href="https://injectlynx.inilesh.dev/community.html">
+    <title>Injectlynx Community</title>
+    <link rel="icon" type="image/svg+xml" href="assets/injectlynx-mark.svg">
+    <script>(() => { let t = null; try { t = localStorage.getItem("injectlynx-theme"); } catch { t = null; } document.documentElement.dataset.theme = t || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); })();</script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Injectlynx home"><img src="assets/injectlynx-logo.svg" alt="Injectlynx" width="514" height="137"></a>
+      <nav class="nav" aria-label="Primary navigation"><a href="index.html">Home</a><a href="index.html#docs">Docs</a></nav>
+      <div class="header-actions"><a class="nav-cta" href="https://www.nuget.org/packages/Injectlynx">NuGet</a><button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true"></span></button><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button></div>
+      <div class="mobile-menu" id="mobile-menu"><a href="index.html">Home</a><a href="index.html#docs">Docs</a></div>
+    </header>
+    <main class="page-main">
+      <section class="page-hero"><p class="eyebrow">Community</p><h1>Help make compile-time DI boring in the best way.</h1><p>Good issues and pull requests explain the registration shape, expected generated output, diagnostics, target framework, and sample project when possible.</p></section>
+      <section class="band page-band">
+        <div class="resource-grid">
+          <a class="resource-card" href="https://github.com/it-nilesh/Injectlynx/issues/new/choose"><span>Issues</span><h2>Report a bug</h2><p>Include target framework, DSL module, expected output, actual diagnostic, and minimal reproduction.</p></a>
+          <a class="resource-card" href="https://github.com/it-nilesh/Injectlynx/issues/new/choose"><span>Ideas</span><h2>Request a feature</h2><p>Describe the developer workflow, generated registration, Native AOT impact, and migration path.</p></a>
+          <a class="resource-card" href="https://github.com/it-nilesh/Injectlynx/pulls"><span>Pull requests</span><h2>Contribute code</h2><p>Keep changes focused, add tests for behavior, and update docs for public APIs or diagnostics.</p></a>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><p>Community work is strongest when it keeps the generated code understandable.</p><div><a href="index.html#docs">Docs</a><a href="https://github.com/it-nilesh/Injectlynx">Source</a></div></footer>
+    <script src="script.js"></script>
+  </body>
+</html>

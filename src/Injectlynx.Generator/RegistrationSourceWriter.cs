@@ -7,7 +7,7 @@ namespace Injectlynx.Generator;
 
 internal static class RegistrationSourceWriter
 {
-    public static string Write(ModuleModel module, ImmutableArray<GeneratedRegistration> registrations)
+    public static string Write(ModuleModel module, ImmutableArray<GeneratedRegistration> registrations, bool includeComments)
     {
         var typeName = "Injectlynx" + module.Identity.Name + "ServiceCollectionExtensions";
         var builder = new StringBuilder();
@@ -28,7 +28,11 @@ internal static class RegistrationSourceWriter
 
         foreach (var registration in registrations)
         {
-            WriteReason(builder, registration);
+            if (includeComments)
+            {
+                WriteReason(builder, registration);
+            }
+
             builder.AppendLine("        " + WriteRegistration(registration));
         }
 

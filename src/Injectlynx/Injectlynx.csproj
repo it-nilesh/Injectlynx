@@ -11,12 +11,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Injectlynx.Analyzers\Injectlynx.Analyzers.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    <ProjectReference Include="..\Injectlynx.CodeFixes\Injectlynx.CodeFixes.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
     <ProjectReference Include="..\Injectlynx.Generator\Injectlynx.Generator.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+    <PackageReference Include="System.Text.Json" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="" />
     <None Include="buildTransitive\Injectlynx.props" Pack="true" PackagePath="buildTransitive" />
+    <None Include="..\Injectlynx.Analyzers\bin\$(Configuration)\netstandard2.0\Injectlynx.Analyzers.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="..\Injectlynx.Analyzers\bin\$(Configuration)\netstandard2.0\Injectlynx.Analyzers.pdb" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="..\Injectlynx.CodeFixes\bin\$(Configuration)\netstandard2.0\Injectlynx.CodeFixes.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="..\Injectlynx.CodeFixes\bin\$(Configuration)\netstandard2.0\Injectlynx.CodeFixes.pdb" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <None Include="..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\*.dll" Exclude="..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis*.dll;..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll;..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\System.IO.Pipelines.dll;..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\System.Text.Encodings.Web.dll;..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\System.Text.Json.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <None Include="..\Injectlynx.Generator\bin\$(Configuration)\netstandard2.0\*.pdb" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>

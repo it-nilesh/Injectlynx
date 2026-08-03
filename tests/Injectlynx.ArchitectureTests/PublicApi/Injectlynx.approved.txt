@@ -1,0 +1,144 @@
+T: Injectlynx.IServiceArchitectureRuleBuilder
+  M: AsError(System.String message) : Injectlynx.IServiceArchitectureRuleBuilder
+  M: AsWarning(System.String message) : Injectlynx.IServiceArchitectureRuleBuilder
+  M: FromNamespace(System.String namespaceName) : Injectlynx.IServiceArchitectureRuleBuilder
+  M: ToNamespace(System.String namespaceName) : Injectlynx.IServiceArchitectureRuleBuilder
+T: Injectlynx.IServiceConventionBuilder
+  M: Decorate() : Injectlynx.IServiceDecoratorBuilder
+  M: Diagnostic(System.String diagnosticId) : Injectlynx.IServiceDiagnosticBuilder
+  M: External() : Injectlynx.IServiceExternalServiceBuilder
+  M: For() : Injectlynx.IServiceTypeInjectionBuilder<TImplementation>
+  M: ForbidDependency() : Injectlynx.IServiceArchitectureRuleBuilder
+  M: FrameworkProvided() : Injectlynx.IServiceFrameworkServiceBuilder
+  M: FromNamespace(System.String namespaceName) : Injectlynx.IServiceConventionRuleBuilder
+  M: GeneratedMethod(System.String methodName) : Injectlynx.IServiceConventionBuilder
+  M: GeneratedNamespace(System.String namespaceName) : Injectlynx.IServiceConventionBuilder
+  M: ModuleName(System.String moduleName) : Injectlynx.IServiceConventionBuilder
+  M: Register() : Injectlynx.IServiceExplicitRegistrationBuilder
+T: Injectlynx.IServiceConventionRuleBuilder
+  M: AsImplementedInterfaces() : Injectlynx.IServiceConventionRuleBuilder
+  M: AsMatchingInterface() : Injectlynx.IServiceConventionRuleBuilder
+  M: AsMatchingInterfaceAndSelf() : Injectlynx.IServiceConventionRuleBuilder
+  M: AsSelf() : Injectlynx.IServiceConventionRuleBuilder
+  M: AssignableToOpenGeneric(System.Type openGenericType) : Injectlynx.IServiceConventionRuleBuilder
+  M: ExcludeNamespace(System.String namespaceName) : Injectlynx.IServiceConventionRuleBuilder
+  M: ExcludeType() : Injectlynx.IServiceConventionRuleBuilder
+  M: WhereInterfaceNameEndsWith(System.String suffix) : Injectlynx.IServiceConventionRuleBuilder
+  M: WhereInterfaceNameStartsWith(System.String prefix) : Injectlynx.IServiceConventionRuleBuilder
+  M: WhereNameEndsWith(System.String suffix) : Injectlynx.IServiceConventionRuleBuilder
+  M: WhereNameStartsWith(System.String prefix) : Injectlynx.IServiceConventionRuleBuilder
+  M: WithScopedLifetime() : Injectlynx.IServiceConventionRuleBuilder
+  M: WithSingletonLifetime() : Injectlynx.IServiceConventionRuleBuilder
+  M: WithTransientLifetime() : Injectlynx.IServiceConventionRuleBuilder
+T: Injectlynx.IServiceDecoratorBuilder
+  M: WithOrder(System.Int32 order) : Injectlynx.IServiceDecoratorBuilder
+T: Injectlynx.IServiceDiagnosticBuilder
+  M: AsError() : Injectlynx.IServiceConventionBuilder
+  M: AsHidden() : Injectlynx.IServiceConventionBuilder
+  M: AsInfo() : Injectlynx.IServiceConventionBuilder
+  M: AsWarning() : Injectlynx.IServiceConventionBuilder
+T: Injectlynx.IServiceExplicitRegistrationBuilder
+  M: WithKey(System.String key) : Injectlynx.IServiceExplicitRegistrationBuilder
+  M: WithScopedLifetime() : Injectlynx.IServiceExplicitRegistrationBuilder
+  M: WithSingletonLifetime() : Injectlynx.IServiceExplicitRegistrationBuilder
+  M: WithTransientLifetime() : Injectlynx.IServiceExplicitRegistrationBuilder
+T: Injectlynx.IServiceExternalServiceBuilder
+  M: WithKey(System.String key) : Injectlynx.IServiceExternalServiceBuilder
+  M: WithScopedLifetime() : Injectlynx.IServiceExternalServiceBuilder
+  M: WithSingletonLifetime() : Injectlynx.IServiceExternalServiceBuilder
+  M: WithTransientLifetime() : Injectlynx.IServiceExternalServiceBuilder
+T: Injectlynx.IServiceFrameworkServiceBuilder
+  M: FromProvider(System.String providerName) : Injectlynx.IServiceFrameworkServiceBuilder
+T: Injectlynx.IServiceMethodInjectionBuilder<TImplementation>
+  M: WithConstantArgument(System.String parameterName, TValue value) : Injectlynx.IServiceMethodInjectionBuilder<TImplementation>
+  M: WithServiceArgument(System.String parameterName) : Injectlynx.IServiceMethodInjectionBuilder<TImplementation>
+T: Injectlynx.IServiceTypeInjectionBuilder<TImplementation>
+  M: InjectMethod(System.Linq.Expressions.Expression<System.Action<TImplementation>> method) : Injectlynx.IServiceMethodInjectionBuilder<TImplementation>
+  M: InjectMethod(System.String methodName) : Injectlynx.IServiceMethodInjectionBuilder<TImplementation>
+  M: InjectOptionalProperty(System.Linq.Expressions.Expression<System.Func<TImplementation, TProperty>> property) : Injectlynx.IServiceTypeInjectionBuilder<TImplementation>
+  M: InjectProperty(System.Linq.Expressions.Expression<System.Func<TImplementation, TProperty>> property) : Injectlynx.IServiceTypeInjectionBuilder<TImplementation>
+T: Injectlynx.Plugins.IInjectlynxPlugin
+  P: Description : System.String
+  P: Name : System.String
+  P: Order : System.Int32
+  M: ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection services) : System.Void
+T: Injectlynx.Plugins.InjectlynxLoadedPlugin
+  C: (Injectlynx.Plugins.InjectlynxPluginManifest Manifest, System.String ManifestPath, System.String AssemblyPath, Injectlynx.Plugins.IInjectlynxPlugin Instance, System.Action Unload)
+  P: AssemblyPath : System.String
+  P: Instance : Injectlynx.Plugins.IInjectlynxPlugin
+  P: Manifest : Injectlynx.Plugins.InjectlynxPluginManifest
+  P: ManifestPath : System.String
+  P: Unload : System.Action
+  M: <Clone>$() : Injectlynx.Plugins.InjectlynxLoadedPlugin
+  M: Deconstruct(Injectlynx.Plugins.InjectlynxPluginManifest& Manifest, System.String& ManifestPath, System.String& AssemblyPath, Injectlynx.Plugins.IInjectlynxPlugin& Instance, System.Action& Unload) : System.Void
+  M: Equals(Injectlynx.Plugins.InjectlynxLoadedPlugin other) : System.Boolean
+  M: Equals(System.Object obj) : System.Boolean
+  M: GetHashCode() : System.Int32
+  M: ToString() : System.String
+T: Injectlynx.Plugins.InjectlynxPluginDiagnostic
+  C: (Injectlynx.Plugins.InjectlynxPluginDiagnosticSeverity Severity, System.String Code, System.String Message, System.String ManifestPath, System.String PluginName)
+  P: Code : System.String
+  P: ManifestPath : System.String
+  P: Message : System.String
+  P: PluginName : System.String
+  P: Severity : Injectlynx.Plugins.InjectlynxPluginDiagnosticSeverity
+  M: <Clone>$() : Injectlynx.Plugins.InjectlynxPluginDiagnostic
+  M: Deconstruct(Injectlynx.Plugins.InjectlynxPluginDiagnosticSeverity& Severity, System.String& Code, System.String& Message, System.String& ManifestPath, System.String& PluginName) : System.Void
+  M: Equals(Injectlynx.Plugins.InjectlynxPluginDiagnostic other) : System.Boolean
+  M: Equals(System.Object obj) : System.Boolean
+  M: GetHashCode() : System.Int32
+  M: ToString() : System.String
+T: Injectlynx.Plugins.InjectlynxPluginDiagnosticSeverity
+T: Injectlynx.Plugins.InjectlynxPluginLoadOptions
+  C: ()
+  P: ConfigurationFiles : System.Collections.Generic.IList<System.String>
+  P: DisabledPlugins : System.Collections.Generic.ISet<System.String>
+  P: DiscoverUnmanifestedAssemblies : System.Boolean
+  P: ManifestFiles : System.Collections.Generic.IList<System.String>
+  P: PluginAssemblies : System.Collections.Generic.IList<System.String>
+  P: PluginDirectories : System.Collections.Generic.IList<System.String>
+  P: ThrowOnError : System.Boolean
+  P: UseCollectibleLoadContext : System.Boolean
+  M: AddAssembly(System.String path) : System.Void
+  M: AddConfiguration(System.String path) : System.Void
+  M: AddDirectory(System.String path) : System.Void
+  M: AddManifest(System.String path) : System.Void
+  M: DisablePlugin(System.String name) : System.Void
+T: Injectlynx.Plugins.InjectlynxPluginLoadResult
+  C: (System.Collections.Generic.IReadOnlyList<Injectlynx.Plugins.InjectlynxLoadedPlugin> Plugins, System.Collections.Generic.IReadOnlyList<Injectlynx.Plugins.InjectlynxPluginDiagnostic> Diagnostics)
+  P: Diagnostics : System.Collections.Generic.IReadOnlyList<Injectlynx.Plugins.InjectlynxPluginDiagnostic>
+  P: HasErrors : System.Boolean
+  P: Plugins : System.Collections.Generic.IReadOnlyList<Injectlynx.Plugins.InjectlynxLoadedPlugin>
+  M: <Clone>$() : Injectlynx.Plugins.InjectlynxPluginLoadResult
+  M: Deconstruct(System.Collections.Generic.IReadOnlyList<Injectlynx.Plugins.InjectlynxLoadedPlugin>& Plugins, System.Collections.Generic.IReadOnlyList<Injectlynx.Plugins.InjectlynxPluginDiagnostic>& Diagnostics) : System.Void
+  M: Equals(Injectlynx.Plugins.InjectlynxPluginLoadResult other) : System.Boolean
+  M: Equals(System.Object obj) : System.Boolean
+  M: GetHashCode() : System.Int32
+  M: ToString() : System.String
+T: Injectlynx.Plugins.InjectlynxPluginLoader
+  M: ApplyConfigurationFiles(Injectlynx.Plugins.InjectlynxPluginLoadOptions options, System.Collections.Generic.IList<Injectlynx.Plugins.InjectlynxPluginDiagnostic> diagnostics) : System.Void
+  M: DiscoverAssemblyFiles(Injectlynx.Plugins.InjectlynxPluginLoadOptions options, System.Collections.Generic.IList<Injectlynx.Plugins.InjectlynxPluginDiagnostic> diagnostics) : System.Collections.Generic.IReadOnlyList<System.String>
+  M: DiscoverManifestFiles(Injectlynx.Plugins.InjectlynxPluginLoadOptions options, System.Collections.Generic.IList<Injectlynx.Plugins.InjectlynxPluginDiagnostic> diagnostics) : System.Collections.Generic.IReadOnlyList<System.String>
+  M: Load(Microsoft.Extensions.DependencyInjection.IServiceCollection services, Injectlynx.Plugins.InjectlynxPluginLoadOptions options) : Injectlynx.Plugins.InjectlynxPluginLoadResult
+  M: ReadManifest(System.String manifestPath) : Injectlynx.Plugins.InjectlynxPluginManifest
+T: Injectlynx.Plugins.InjectlynxPluginManifest
+  C: (System.String Name, System.String Version, System.String Description, System.String EntryAssembly, System.String TypeName, System.String TargetFramework, System.String Sha256, System.Collections.Generic.IReadOnlyList<System.String> Dependencies, System.Boolean Enabled, System.Int32 Order)
+  P: Dependencies : System.Collections.Generic.IReadOnlyList<System.String>
+  P: Description : System.String
+  P: Empty : Injectlynx.Plugins.InjectlynxPluginManifest
+  P: Enabled : System.Boolean
+  P: EntryAssembly : System.String
+  P: Name : System.String
+  P: Order : System.Int32
+  P: Sha256 : System.String
+  P: TargetFramework : System.String
+  P: TypeName : System.String
+  P: Version : System.String
+  M: <Clone>$() : Injectlynx.Plugins.InjectlynxPluginManifest
+  M: Deconstruct(System.String& Name, System.String& Version, System.String& Description, System.String& EntryAssembly, System.String& TypeName, System.String& TargetFramework, System.String& Sha256, System.Collections.Generic.IReadOnlyList<System.String>& Dependencies, System.Boolean& Enabled, System.Int32& Order) : System.Void
+  M: Equals(Injectlynx.Plugins.InjectlynxPluginManifest other) : System.Boolean
+  M: Equals(System.Object obj) : System.Boolean
+  M: GetHashCode() : System.Int32
+  M: ToString() : System.String
+T: Injectlynx.Plugins.InjectlynxPluginServiceCollectionExtensions
+  M: AddInjectlynxPlugins(Microsoft.Extensions.DependencyInjection.IServiceCollection services, System.Action<Injectlynx.Plugins.InjectlynxPluginLoadOptions> configure) : Injectlynx.Plugins.InjectlynxPluginLoadResult

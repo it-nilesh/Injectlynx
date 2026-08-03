@@ -254,3 +254,40 @@ services
 ```
 
 This registers `OrderStore` only as `IWriteOrderStore`. Add more `Register<TService, TImplementation>()` calls for additional specific contracts.
+
+### Keyed Registrations
+
+Use `WithKey(...)` for services consumed through Microsoft DI keyed service APIs on modern .NET targets:
+
+```csharp
+services
+    .Register<IPaymentGateway, StripePaymentGateway>()
+    .WithScopedLifetime()
+    .WithKey("stripe");
+```
+
+Target `net8.0` or later for keyed services. Older target frameworks can report `INJ005` because the keyed APIs may not be available.
+
+### Decorators
+
+Use `Decorate<TService, TDecorator>()` when a decorator should wrap an unkeyed generated registration:
+
+```csharp
+services.Decorate<IOrderService, LoggingOrderDecorator>();
+```
+
+The decorator must implement the same service contract. Injectlynx reports diagnostics when the target is missing, only keyed, or when a singleton decorator chain captures scoped dependencies.
+
+### Architecture Rules
+
+Use architecture rules to keep dependency direction visible in the build:
+
+```csharp
+services
+    .ForbidDependency()
+    .FromNamespace("Shop.Web")
+    .ToNamespace("Shop.Infrastructure")
+    .AsError("Web layer must depend on application abstractions.");
+```
+
+Architecture diagnostics are useful in layered applications, modular monoliths, and shared library solutions where forbidden references can otherwise slip in quietly.

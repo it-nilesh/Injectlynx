@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Added dedicated website documentation, examples, changelog, release, compatibility, and community pages.
+- Added SEO FAQ schema and sitemap entries for the production website.
+- Added copy-to-clipboard controls for website code examples.
+- Added changelog-driven release notes automation for GitHub releases.
+- Added issue templates and a pull request template.
+- Added a supported target framework and validation compatibility matrix.
+- Added plugin discovery from JSON configuration, dependency ordering, target-framework compatibility checks, optional SHA-256 manifest verification, and unload coverage.
+- Added CLI plugin commands to list, validate, and inspect runtime plugin registrations.
+- Added public API approval tests for the primary `Injectlynx` package surface.
 - Added Phase 0 architecture assessment documentation.
 - Established the initial .NET solution structure.
 - Added the Phase 1 immutable core domain model and focused unit tests.

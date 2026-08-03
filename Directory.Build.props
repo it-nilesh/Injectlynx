@@ -15,8 +15,13 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/it-nilesh/Injectlynx</PackageProjectUrl>
     <RepositoryUrl>https://github.com/it-nilesh/Injectlynx</RepositoryUrl>
-    <PackageTags>dependency-injection;source-generator;roslyn;compile-time-di;net8;net9;net10;native-aot</PackageTags>
+    <PackageTags>dependency-injection;source-generator;roslyn;compile-time-di;dynamic-plugins;runtime-plugins;net8;net9;net10;native-aot</PackageTags>
     <PackageReleaseNotes>Supports netstandard2.0, .NET 8, .NET 9, and .NET 10. The source generator is packaged as an analyzer.</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+  <ItemGroup>
+    <CompilerVisibleProperty Include="InjectlynxDevelopmentReport" />
+    <CompilerVisibleProperty Include="InjectlynxRegistrationComments" />
+    <CompilerVisibleProperty Include="InjectlynxReportSource" />
+  </ItemGroup>
 </Project>
