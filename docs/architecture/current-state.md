@@ -20,7 +20,7 @@ Implemented functionality includes:
 
 `Injectlynx.Core` contains Roslyn-free semantic models. `Injectlynx.Generator` owns Roslyn discovery and generated source output. `Injectlynx` assembles the consumer package and public DSL surface.
 
-`Injectlynx.Analyzers`, `Injectlynx.CodeFixes`, and `Injectlynx.Cli` are reserved for future tooling. Keep them buildable, but do not package or document them as consumer-facing features until their rules and UX are stable.
+`Injectlynx.Analyzers`, `Injectlynx.CodeFixes`, and `Injectlynx.Cli` now provide early IDE diagnostics, conservative code fixes, and local inspection commands. Keep their UX conservative and buildable as the tooling expands.
 
 ## Generator Architecture
 

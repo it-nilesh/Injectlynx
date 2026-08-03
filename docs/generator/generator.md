@@ -55,6 +55,18 @@ dotnet build -p:InjectlynxDevelopmentReport=warning
 
 Keep the report disabled in CI and production builds.
 
+## Build-Time Performance
+
+Injectlynx moves convention discovery into source generation. Runtime startup should be compared with manual Microsoft DI registrations, while generator cost should be measured as build-time overhead.
+
+Use the large-consumer smoke script when validating source-generator behavior at scale:
+
+```bash
+SERVICE_COUNT=500 TARGET_FRAMEWORK=net10.0 bash eng/validation/measure-generator-performance.sh
+```
+
+See [Performance And Benchmarks](../benchmarks/performance.md) for the benchmark plan.
+
 ## Current Limitations
 
 - DSL parsing is intentionally restricted and reports `INJ504` for non-deterministic declarations.

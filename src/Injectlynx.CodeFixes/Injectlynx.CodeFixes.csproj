@@ -4,10 +4,17 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Future IDE code-fix package for Injectlynx analyzer diagnostics.</Description>
     <IsPackable>false</IsPackable>
+    <IsRoslynComponent>true</IsRoslynComponent>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Injectlynx.Analyzers\Injectlynx.Analyzers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

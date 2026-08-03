@@ -5,5 +5,5 @@ var services = new ServiceCollection()
     .AddInjectlynxServices()
     .BuildServiceProvider(validateScopes: true);
 
-var clock = services.GetRequiredService<IClockService>();
-Console.WriteLine(clock.GetMessage());
+var startupMessage = services.GetRequiredService<IStartupMessageService>();
+Console.WriteLine(startupMessage.CreateMessage());

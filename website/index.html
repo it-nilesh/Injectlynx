@@ -87,6 +87,38 @@
         ]
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What problem does Injectlynx solve?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Injectlynx removes repetitive dependency injection registration work by generating Microsoft.Extensions.DependencyInjection registrations at build time from C# conventions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Injectlynx Native AOT friendly?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The default compile-time registration path is Native AOT friendly because it emits direct service registration source instead of runtime assembly scanning."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Injectlynx require attributes on service classes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Injectlynx is attribute-free. Developers describe service registration rules in a strongly typed C# convention module."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -98,6 +130,7 @@
         <a href="#why">Why it matters</a>
         <a href="#use">How to use</a>
         <a href="#speed">Speed</a>
+        <a href="#docs">Docs</a>
         <a href="#install">Install</a>
       </nav>
       <div class="header-actions">
@@ -116,6 +149,7 @@
         <a href="#why">Why it matters</a>
         <a href="#use">How to use</a>
         <a href="#speed">Speed</a>
+        <a href="#docs">Docs</a>
         <a href="#install">Install</a>
         <a href="https://www.nuget.org/packages/Injectlynx">NuGet package</a>
       </div>
@@ -336,6 +370,25 @@ services.AddScoped&lt;IInvoiceService, InvoiceService&gt;();</code></pre>
         </div>
       </section>
 
+      <section class="band docs-band" id="docs">
+        <div class="section-heading">
+          <p class="eyebrow">Docs</p>
+          <h2>Everything developers need without leaving the page.</h2>
+          <p>
+            Jump into the practical guides behind Injectlynx: conventions, diagnostics, generated output,
+            Native AOT, dynamic plugins, migration paths, and compatibility notes.
+          </p>
+        </div>
+        <div class="resource-grid">
+          <a class="resource-card" href="https://github.com/it-nilesh/Injectlynx/blob/main/docs/guides/registration-approaches.md"><span>Guide</span><h3>Registration Approaches</h3><p>Choose between manual registration, runtime scanning, and compile-time generation.</p></a>
+          <a class="resource-card" href="https://github.com/it-nilesh/Injectlynx/blob/main/docs/configuration/configuration.md"><span>Reference</span><h3>Convention DSL</h3><p>Configure namespaces, filters, interfaces, lifetimes, generated names, and diagnostics.</p></a>
+          <a class="resource-card" href="https://github.com/it-nilesh/Injectlynx/blob/main/docs/diagnostics/diagnostics.md"><span>Diagnostics</span><h3>Build Feedback</h3><p>Understand generator diagnostics and fix invalid conventions before runtime.</p></a>
+          <a class="resource-card" href="https://github.com/it-nilesh/Injectlynx/blob/main/docs/reference/generated-output-examples.md"><span>Generated source</span><h3>Output Examples</h3><p>Review emitted Microsoft DI registrations for common DSL patterns.</p></a>
+          <a class="resource-card" href="https://github.com/it-nilesh/Injectlynx/blob/main/docs/native-aot/native-aot.md"><span>Modern .NET</span><h3>Native AOT</h3><p>Use compile-time registrations in trimming-sensitive application paths.</p></a>
+          <a class="resource-card" href="https://github.com/it-nilesh/Injectlynx/blob/main/docs/plugins/dynamic-plugin-loading.md"><span>Runtime extension</span><h3>Dynamic Plugins</h3><p>Load optional runtime plugins when a host cannot know every service at build time.</p></a>
+        </div>
+      </section>
+
       <section class="band install-band" id="install">
         <div class="install-copy">
           <p class="eyebrow">Start now</p>
@@ -357,7 +410,7 @@ dotnet build -p:InjectlynxDevelopmentReport=true</code></pre>
         </div>
         <div class="final-actions">
           <a class="button primary" href="https://www.nuget.org/packages/Injectlynx">Open NuGet</a>
-          <a class="button secondary" href="https://github.com/it-nilesh/Injectlynx#readme">Read documentation</a>
+          <a class="button secondary" href="#docs">Read documentation</a>
         </div>
       </section>
     </main>
@@ -365,7 +418,7 @@ dotnet build -p:InjectlynxDevelopmentReport=true</code></pre>
     <footer class="footer">
       <p>Injectlynx is licensed under MIT. Built for developers who want DI to be explicit, fast, and compiler-friendly.</p>
       <div>
-        <a href="https://github.com/it-nilesh/Injectlynx#readme">Docs</a>
+        <a href="#docs">Docs</a>
         <a href="https://github.com/it-nilesh/Injectlynx">Source</a>
         <a href="https://www.nuget.org/packages/Injectlynx">NuGet</a>
       </div>

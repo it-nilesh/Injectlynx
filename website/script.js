@@ -5,8 +5,9 @@ const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobile-menu");
 const brandLogo = document.querySelector(".brand img");
 const revealTargets = document.querySelectorAll(
-  ".compare-card, .feature-card, .steps article, .speed-list article, .solution-copy, .solution-map, .install-copy, .terminal"
+  ".compare-card, .feature-card, .steps article, .speed-list article, .solution-copy, .solution-map, .install-copy, .terminal, .resource-card, .example-card, .release-grid article, .timeline article, .matrix-wrap"
 );
+const codeBlocks = document.querySelectorAll("pre");
 
 const setTheme = (theme) => {
   const isDark = theme === "dark";
@@ -78,6 +79,35 @@ tabs.forEach((tab) => {
       panel.classList.toggle("active", panel.dataset.panel === target);
     });
   });
+});
+
+codeBlocks.forEach((block) => {
+  const code = block.querySelector("code");
+  if (!code) {
+    return;
+  }
+
+  const button = document.createElement("button");
+  button.className = "copy-button";
+  button.type = "button";
+  button.textContent = "Copy";
+  button.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(code.textContent || "");
+      button.textContent = "Copied";
+      window.setTimeout(() => {
+        button.textContent = "Copy";
+      }, 1600);
+    } catch {
+      button.textContent = "Unavailable";
+      window.setTimeout(() => {
+        button.textContent = "Copy";
+      }, 1600);
+    }
+  });
+
+  block.classList.add("copyable");
+  block.appendChild(button);
 });
 
 revealTargets.forEach((target) => target.classList.add("reveal"));

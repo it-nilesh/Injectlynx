@@ -1,5 +1,7 @@
 <Project>
   <ItemGroup>
     <CompilerVisibleProperty Include="InjectlynxDevelopmentReport" />
+    <CompilerVisibleProperty Include="InjectlynxRegistrationComments" />
+    <CompilerVisibleProperty Include="InjectlynxReportSource" />
   </ItemGroup>
 </Project>
