@@ -25,6 +25,7 @@ packages/
 *.tmp
 *.temp
 *.cache
+release-notes.md
 
 # OS files
 .DS_Store
