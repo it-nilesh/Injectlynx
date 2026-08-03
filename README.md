@@ -204,27 +204,15 @@ bash eng/validation/validate-trimming.sh
 
 ## Documentation
 
-- [Positioning](docs/guides/positioning.md)
-- [Registration Approaches](docs/guides/registration-approaches.md)
-- [Migrate From Manual Registration](docs/guides/migrate-from-manual-registration.md)
-- [Migrate From Runtime Scanning](docs/guides/migrate-from-runtime-scanning.md)
-- [Troubleshooting](docs/guides/troubleshooting.md)
-- [Generated Output Examples](docs/reference/generated-output-examples.md)
 - [Configuration DSL](docs/configuration/configuration.md)
 - [Member Injection DSL](docs/configuration/member-injection-dsl.md)
 - [Diagnostics](docs/diagnostics/diagnostics.md)
-- [Analyzers And Code Fixes](docs/analyzers/analyzers.md)
 - [Generator Architecture](docs/generator/generator.md)
-- [Generator Transparency](docs/generator/transparency.md)
-- [CLI Inspection Tooling](docs/cli/cli.md)
-- [Performance And Benchmarks](docs/benchmarks/performance.md)
 - [Native AOT](docs/native-aot/native-aot.md)
 - [Dynamic Plugin Loading](docs/plugins/dynamic-plugin-loading.md)
-- [Compatibility Matrix](docs/compatibility.md)
-- [Release Process](docs/release.md)
-- [Community](docs/community.md)
-- [Common Architecture Styles](docs/guides/common-architecture-styles.md)
 - [Packaging](docs/packaging/packaging.md)
+- [Release Process](docs/release.md)
+- [Security](docs/security/security.md)
 
 ## Package Notes
 

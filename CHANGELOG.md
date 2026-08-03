@@ -11,6 +11,7 @@
 - Added plugin discovery from JSON configuration, dependency ordering, target-framework compatibility checks, optional SHA-256 manifest verification, and unload coverage.
 - Added CLI plugin commands to list, validate, and inspect runtime plugin registrations.
 - Added public API approval tests for the primary `Injectlynx` package surface.
+- Trimmed non-essential docs and kept the maintained docs surface focused on configuration, diagnostics, generator behavior, Native AOT, packaging, plugins, release, samples, and security.
 - Added Phase 0 architecture assessment documentation.
 - Established the initial .NET solution structure.
 - Added the Phase 1 immutable core domain model and focused unit tests.

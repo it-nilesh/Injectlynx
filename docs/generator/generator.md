@@ -65,7 +65,7 @@ Use the large-consumer smoke script when validating source-generator behavior at
 SERVICE_COUNT=500 TARGET_FRAMEWORK=net10.0 bash eng/validation/measure-generator-performance.sh
 ```
 
-See [Performance And Benchmarks](../benchmarks/performance.md) for the benchmark plan.
+Use `eng/validation/measure-generator-performance.sh` for source-generator performance smoke checks on large generated consumers.
 
 ## Current Limitations
 

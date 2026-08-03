@@ -1,6 +1,6 @@
 # Injectlynx Task List
 
-Last updated: 2026-08-03
+Last updated: 2026-08-04
 
 This file tracks completed project work and future feature tasks for Injectlynx.
 
@@ -109,7 +109,7 @@ This file tracks completed project work and future feature tasks for Injectlynx.
 - [x] Add packaging documentation.
 - [x] Add sample documentation.
 - [x] Add security documentation.
-- [x] Add introductory article draft.
+- [x] Trim non-essential docs and keep the maintained docs surface focused.
 
 ### Website
 
@@ -130,15 +130,12 @@ This file tracks completed project work and future feature tasks for Injectlynx.
 
 Use this order when planning implementation. Each phase should be mostly complete before moving to the next phase, unless a bug fix or release need changes the priority.
 
-### Phase 1: Positioning And Documentation
+### Phase 1: Core Documentation
 
 - [x] Publish Injectlynx positioning as a compile-time Microsoft DI registration generator.
 - [x] Document the difference between generated `IServiceCollection` registrations, manual registrations, and runtime scanning.
-- [x] Add migration guide from manual `IServiceCollection` registrations.
-- [x] Add migration guide from runtime scanning libraries.
-- [x] Add troubleshooting guide for common diagnostics.
-- [x] Add generated-output examples for each major DSL pattern.
-- [x] Add benchmark documentation for generated Microsoft DI registrations, startup behavior, and source-generator performance.
+- [x] Add maintained configuration, diagnostics, generator, Native AOT, packaging, plugin, release, sample, and security docs.
+- [x] Remove non-essential migration, article, benchmark, community, compatibility, CLI, and generated-output reference docs.
 
 ### Phase 2: Generator Transparency
 
@@ -164,8 +161,6 @@ Use this order when planning implementation. Each phase should be mostly complet
 - [x] Add tests for decorator registration ordering.
 - [x] Add tests for architecture rule enforcement.
 - [x] Add package smoke tests for fresh consumer projects.
-- [x] Add benchmark documentation comparing Injectlynx-generated Microsoft DI registrations against manual Microsoft DI registrations.
-- [x] Add benchmark documentation comparing startup behavior against runtime scanning approaches.
 - [x] Add source-generator performance benchmarks for large solutions.
 
 ### Phase 5: Analyzer And Code Fix Tooling
@@ -199,15 +194,14 @@ Use this order when planning implementation. Each phase should be mostly complet
 - [x] Add discovery, validation, diagnostics, and sample plugin apps.
 - [x] Clearly document that dynamic plugin loading is opt-in runtime behavior with different Native AOT and trimming tradeoffs.
 
-### Phase 9: Website, Release, And Community
+### Phase 9: Website And Release
 
-- [x] Add dedicated documentation pages instead of a single landing page.
+- [x] Add same-page website documentation section instead of a separate docs page.
 - [x] Add live examples section for Minimal API, Web API, Worker Service, and Native AOT.
-- [x] Add changelog page.
 - [x] Add release/version badge section.
 - [x] Add release notes automation.
 - [x] Add issue and pull request templates.
-- [x] Add compatibility matrix for supported .NET versions.
+- [x] Keep `docs/release.md` as the maintained release-process document.
 
 ## Future Feature Tasks By Area
 
@@ -229,7 +223,6 @@ Use this order when planning implementation. Each phase should be mostly complet
 - [x] Add analyzer for convention classes with incorrect signatures.
 - [x] Add analyzer for services that match conventions but cannot be constructed.
 - [ ] Add analyzer for unused explicit service declarations.
-- [x] Add analyzer documentation and diagnostic examples.
 
 ### Code Fix Features
 
@@ -246,7 +239,6 @@ Use this order when planning implementation. Each phase should be mostly complet
 - [x] Add CLI command to print convention match results.
 - [x] Add CLI command to validate a project without packing.
 - [x] Add CLI command to export dependency graph diagnostics.
-- [x] Add CLI documentation and examples.
 
 ### Dynamic Plugin Loading
 
@@ -304,20 +296,16 @@ Use this order when planning implementation. Each phase should be mostly complet
 
 ### Documentation
 
-- [x] Add migration guide from manual `IServiceCollection` registrations.
-- [x] Add migration guide from runtime scanning libraries.
-- [x] Add advanced recipe docs for multi-project solutions.
 - [x] Add docs for decorators and keyed services.
 - [x] Add docs for architecture rules.
-- [x] Add troubleshooting guide for common diagnostics.
-- [x] Add generated-output examples for each major DSL pattern.
+- [x] Keep maintained docs for configuration, member injection, diagnostics, generator internals, Native AOT, packaging, plugins, release, samples, and security.
+- [x] Remove non-essential article, migration, benchmark, community, compatibility, CLI, and generated-output reference docs.
 
 ### Website
 
-- [x] Add dedicated documentation pages instead of a single landing page.
+- [x] Add same-page documentation section on the landing page.
 - [x] Add copy-to-clipboard buttons for code examples.
 - [x] Add live examples section for Minimal API, Web API, Worker Service, and Native AOT.
-- [x] Add changelog page.
 - [x] Add release/version badge section.
 - [x] Add SEO FAQ schema.
 - [x] Add social preview image dedicated to the production website.
@@ -335,7 +323,5 @@ Use this order when planning implementation. Each phase should be mostly complet
 
 - [x] Add issue templates.
 - [x] Add pull request template.
-- [x] Add contribution roadmap.
-- [x] Add examples for common architecture styles.
-- [x] Add compatibility matrix for supported .NET versions.
+- [x] Keep repository maintenance guidance in issue templates, pull request template, `TASKS.md`, and `docs/release.md`.
 - [x] Add public API approval workflow if API churn increases.
