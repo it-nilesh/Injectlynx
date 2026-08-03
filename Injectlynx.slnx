@@ -1,4 +1,5 @@
 <Solution>
+  <Folder Name="/eng/" />
   <Folder Name="/eng/tools/">
     <Project Path="eng/tools/Injectlynx.Sbom/Injectlynx.Sbom.csproj" />
   </Folder>
